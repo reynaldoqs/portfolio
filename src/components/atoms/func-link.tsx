@@ -17,7 +17,7 @@ export function FuncLink({
       type="button"
       onClick={onClick}
       className={cn(
-        "text-stone-400 font-medium hover:text-stone-200 transition-colors duration-300",
+        "text-stone-400 cursor-pointer font-medium hover:text-stone-200 transition-colors duration-300",
         active && "text-stone-200",
         className,
       )}

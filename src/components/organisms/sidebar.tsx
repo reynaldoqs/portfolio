@@ -125,28 +125,24 @@ export function Sidebar({
 
       <div className="flex flex-col gap-4 items-end sidebar-links">
         <FuncLink
-          className="sidebar-whoami"
           active={activeSection === SECTION_IDS[0]}
           onClick={() => onLinkClick?.(SECTION_IDS[0])}
         >
           whoami
         </FuncLink>
         <FuncLink
-          className="sidebar-experience"
           active={activeSection === SECTION_IDS[1]}
           onClick={() => onLinkClick?.(SECTION_IDS[1])}
         >
           experience
         </FuncLink>
         <FuncLink
-          className="sidebar-projects"
           active={activeSection === SECTION_IDS[2]}
           onClick={() => onLinkClick?.(SECTION_IDS[2])}
         >
           projects
         </FuncLink>
         <FuncLink
-          className="sidebar-stack"
           active={activeSection === SECTION_IDS[3]}
           onClick={() => onLinkClick?.(SECTION_IDS[3])}
         >
