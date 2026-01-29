@@ -34,7 +34,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
   return (
     <section
       className={cn(
-        "w-full h-dvh flex justify-center items-center p-6",
+        "relative w-full h-dvh flex justify-center items-center p-6",
         className,
       )}
       {...rest}

@@ -25,7 +25,8 @@ export function ScrollableIndicator({
       const container = containerRef.current;
       if (!container) return;
 
-      gsap.to(container, {
+      gsap.set(container, { opacity: 0, y: 12 });
+      const showTween = gsap.to(container, {
         opacity: 1,
         y: 0,
         duration: 0.5,
@@ -36,10 +37,12 @@ export function ScrollableIndicator({
       if (window.scrollY > 0) {
         didHideRef.current = true;
         setDismissed(true);
+        showTween.kill();
         return;
       }
 
       const cleanup = () => {
+        showTween.kill();
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("wheel", onWheel as EventListener);
         window.removeEventListener("touchmove", onTouchMove as EventListener);
@@ -92,7 +95,7 @@ export function ScrollableIndicator({
     <div
       ref={containerRef}
       className={cn(
-        "absolute bottom-20 will-change-transform opacity-0",
+        "absolute bottom-20 left-1/2 -translate-x-1/2 will-change-transform opacity-0 z-10",
         "pointer-events-none",
       )}
       aria-hidden
