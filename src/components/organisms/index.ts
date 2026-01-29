@@ -1,4 +1,5 @@
 export * from "./experience";
+export * from "./footer";
 export * from "./profile-overview";
 export * from "./projects";
 export * from "./sidebar";

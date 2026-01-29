@@ -2,6 +2,7 @@ import { Roboto_Mono } from "next/font/google";
 import {
   AnimatedLoader,
   Experience,
+  Footer,
   ProfileOverview,
   Projects,
   Sidebar,
@@ -25,7 +26,7 @@ export default function Home() {
         <Experience className="w-full" />
         <Projects className="w-full mt-20" />
         <Stack className="w-full mt-20" />
-        <section className="w-full h-[1000px] bg-blue-500">as</section>
+        <Footer />
       </div>
       <AnimatedLoader />
     </div>
