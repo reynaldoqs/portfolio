@@ -2,13 +2,13 @@ import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { TimelineElement } from "../molecules";
 
-interface ExperienceProps {
+interface ExperienceProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export function Experience({ className }: ExperienceProps) {
+export function Experience({ className, ...rest }: ExperienceProps) {
   return (
-    <section className={cn("w-full h-auto p-12", className)}>
+    <section className={cn("w-full h-auto p-12", className)} {...rest}>
       <TagTitle
         title="EXPERIENCE"
         className="mb-4 text-2xl"

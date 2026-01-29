@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { ScrollableIndicator, ShortcutButton } from "../molecules";
 
-interface ProfileOverviewProps {
+interface ProfileOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export function ProfileOverview({ className }: ProfileOverviewProps) {
+export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
@@ -37,6 +37,7 @@ export function ProfileOverview({ className }: ProfileOverviewProps) {
         "w-full h-dvh flex justify-center items-center p-6",
         className,
       )}
+      {...rest}
     >
       <main ref={containerRef} className="flex flex-col max-w-2xl gap-8">
         <div className="flex gap-4 profile-overview-item">

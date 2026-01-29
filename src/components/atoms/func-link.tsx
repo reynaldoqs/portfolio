@@ -5,13 +5,15 @@ interface FuncLinkProps {
   href: string;
   children: React.ReactNode;
   className?: string;
+  active?: boolean;
 }
-export function FuncLink({ href, children, className }: FuncLinkProps) {
+export function FuncLink({ href, children, className, active }: FuncLinkProps) {
   return (
     <Link
       href={href}
       className={cn(
         "text-stone-400 font-medium hover:text-stone-200 transition-colors duration-300",
+        active && "text-stone-200",
         className,
       )}
     >

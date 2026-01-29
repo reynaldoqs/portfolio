@@ -2,12 +2,12 @@ import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { Brand } from "../molecules";
 
-interface StackProps {
+interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
-export function Stack({ className }: StackProps) {
+export function Stack({ className, ...rest }: StackProps) {
   return (
-    <section className={cn("w-full h-auto p-12", className)}>
+    <section className={cn("w-full h-auto p-12", className)} {...rest}>
       <TagTitle
         title="Stack"
         className="mb-12 text-2xl"

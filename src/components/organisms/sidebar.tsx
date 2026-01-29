@@ -4,6 +4,7 @@ import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
 import { ExternalLink, FuncLink, Icon } from "@/components";
 import { LOADER_DURATION } from "@/constants/animations.config";
+import { SECTION_IDS } from "@/constants/layout";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(SplitText);
@@ -43,11 +44,13 @@ const commentLinkClassName =
 
 interface SidebarProps {
   className?: string;
+  activeSection?: (typeof SECTION_IDS)[number];
 }
 
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className, activeSection }: SidebarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+
   useGSAP(
     () => {
       if (!containerRef.current || !contactRef.current) return;
@@ -116,16 +119,32 @@ export function Sidebar({ className }: SidebarProps) {
       </div>
 
       <div className="flex flex-col gap-4 items-end sidebar-links">
-        <FuncLink href="/" className="sidebar-whoami">
+        <FuncLink
+          href="/"
+          className="sidebar-whoami"
+          active={activeSection === SECTION_IDS[0]}
+        >
           whoami
         </FuncLink>
-        <FuncLink href="/" className="sidebar-experience">
+        <FuncLink
+          href="/"
+          className="sidebar-experience"
+          active={activeSection === SECTION_IDS[1]}
+        >
           experience
         </FuncLink>
-        <FuncLink href="/" className="sidebar-projects">
+        <FuncLink
+          href="/"
+          className="sidebar-projects"
+          active={activeSection === SECTION_IDS[2]}
+        >
           projects
         </FuncLink>
-        <FuncLink href="/" className="sidebar-stack">
+        <FuncLink
+          href="/"
+          className="sidebar-stack"
+          active={activeSection === SECTION_IDS[3]}
+        >
           stack
         </FuncLink>
       </div>

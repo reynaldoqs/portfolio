@@ -2,13 +2,13 @@ import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { ProjectCard } from "../molecules";
 
-interface ProjectsProps {
+interface ProjectsProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export function Projects({ className }: ProjectsProps) {
+export function Projects({ className, ...rest }: ProjectsProps) {
   return (
-    <section className={cn("w-full h-auto p-12", className)}>
+    <section className={cn("w-full h-auto p-12", className)} {...rest}>
       <TagTitle
         title="PROJECTS"
         className="mb-4 text-2xl"
