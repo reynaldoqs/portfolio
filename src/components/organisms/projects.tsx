@@ -9,7 +9,12 @@ interface ProjectsProps {
 export function Projects({ className }: ProjectsProps) {
   return (
     <section className={cn("w-full h-auto p-12", className)}>
-      <TagTitle title="PROJECTS" className="mb-4 text-2xl" />
+      <TagTitle
+        title="PROJECTS"
+        className="mb-4 text-2xl"
+        icon="code-block"
+        iconSize={20}
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
         <ProjectCard
           index={1}

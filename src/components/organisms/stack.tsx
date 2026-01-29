@@ -8,7 +8,12 @@ interface StackProps {
 export function Stack({ className }: StackProps) {
   return (
     <section className={cn("w-full h-auto p-12", className)}>
-      <TagTitle title="Stack" className="mb-4 text-2xl" />
+      <TagTitle
+        title="Stack"
+        className="mb-4 text-2xl"
+        icon="sparkles-solid"
+        iconSize={20}
+      />
       <div>
         <Brand name="React" />
       </div>

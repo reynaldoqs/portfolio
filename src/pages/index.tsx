@@ -1,5 +1,6 @@
 import { Roboto_Mono } from "next/font/google";
 import {
+  AnimatedLoader,
   Experience,
   ProfileOverview,
   Projects,
@@ -26,6 +27,7 @@ export default function Home() {
         <Stack className="w-full mt-20" />
         <section className="w-full h-[1000px] bg-blue-500">as</section>
       </div>
+      <AnimatedLoader />
     </div>
   );
 }

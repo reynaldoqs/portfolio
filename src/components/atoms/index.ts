@@ -1,3 +1,4 @@
+export * from "./animated-logo";
 export * from "./external-link";
 export * from "./func-link";
 export * from "./icon";

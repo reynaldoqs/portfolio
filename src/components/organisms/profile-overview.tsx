@@ -1,14 +1,36 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
+import { useRef } from "react";
 import avatar from "@/assets/images/avatar.png";
+import { LOADER_DURATION } from "@/constants/animations.config";
 import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
-import { ShortcutButton, TimelineElement } from "../molecules";
+import { ScrollableIndicator, ShortcutButton } from "../molecules";
 
 interface ProfileOverviewProps {
   className?: string;
 }
 
 export function ProfileOverview({ className }: ProfileOverviewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      if (!containerRef.current) return;
+      gsap.from(".profile-overview-item", {
+        delay: LOADER_DURATION + 0.2,
+        opacity: 0,
+        duration: 0.5,
+        y: 10,
+        ease: "power2.inOut",
+        stagger: {
+          amount: 0.6,
+          from: "random",
+        },
+      });
+    },
+    { scope: containerRef },
+  );
   return (
     <section
       className={cn(
@@ -16,8 +38,8 @@ export function ProfileOverview({ className }: ProfileOverviewProps) {
         className,
       )}
     >
-      <main className="flex flex-col max-w-2xl gap-8">
-        <div className="flex  gap-4">
+      <main ref={containerRef} className="flex flex-col max-w-2xl gap-8">
+        <div className="flex gap-4 profile-overview-item">
           <Image
             src={avatar}
             alt="Reynaldo Quispe"
@@ -34,8 +56,8 @@ export function ProfileOverview({ className }: ProfileOverviewProps) {
             </h2>
           </div>
         </div>
-        <div className="flex items-start gap-4 ">
-          <TagTitle title="ABOUT ME" />
+        <div className="flex items-start gap-4 profile-overview-item">
+          <TagTitle title="ABOUT ME" icon="user-headset" iconSize={14} />
           <div className="text-base text-stone-400 -mt-2">
             <p>
               UX-focused full stack and mobile developer with 7+ years of
@@ -52,11 +74,12 @@ export function ProfileOverview({ className }: ProfileOverviewProps) {
           </div>
         </div>
 
-        <div className="flex gap-4 mt-2">
+        <div className="flex gap-4 mt-2 profile-overview-item">
           <ShortcutButton icon="search" text="Quick search" />
           <ShortcutButton icon="open-ai" text="Smart AI match" />
         </div>
       </main>
+      <ScrollableIndicator className="text-stone-500" size={42} />
     </section>
   );
 }

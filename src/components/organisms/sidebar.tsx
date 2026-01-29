@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
 import { ExternalLink, FuncLink, Icon } from "@/components";
+import { LOADER_DURATION } from "@/constants/animations.config";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(SplitText);
@@ -50,7 +51,9 @@ export function Sidebar({ className }: SidebarProps) {
   useGSAP(
     () => {
       if (!containerRef.current || !contactRef.current) return;
-      const mainAsideTimeline = gsap.timeline();
+      const mainAsideTimeline = gsap.timeline({
+        delay: LOADER_DURATION,
+      });
       const textElements = new SplitText(".sidebar-links", {
         type: "chars",
       });
