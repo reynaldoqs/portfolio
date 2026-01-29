@@ -45,9 +45,14 @@ const commentLinkClassName =
 interface SidebarProps {
   className?: string;
   activeSection?: (typeof SECTION_IDS)[number];
+  onLinkClick?: (id: (typeof SECTION_IDS)[number]) => void;
 }
 
-export function Sidebar({ className, activeSection }: SidebarProps) {
+export function Sidebar({
+  className,
+  activeSection,
+  onLinkClick,
+}: SidebarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
@@ -110,7 +115,7 @@ export function Sidebar({ className, activeSection }: SidebarProps) {
     <aside
       ref={containerRef}
       className={cn(
-        "sidebar-text border-r border-stone-600/20 px-4 py-8 flex flex-col gap-3 items-end justify-between",
+        "sidebar-text border-r border-stone-600/20 bg-stone-950/60 px-4 py-8 flex flex-col gap-3 items-end justify-between",
         className,
       )}
     >
@@ -120,30 +125,30 @@ export function Sidebar({ className, activeSection }: SidebarProps) {
 
       <div className="flex flex-col gap-4 items-end sidebar-links">
         <FuncLink
-          href="/"
           className="sidebar-whoami"
           active={activeSection === SECTION_IDS[0]}
+          onClick={() => onLinkClick?.(SECTION_IDS[0])}
         >
           whoami
         </FuncLink>
         <FuncLink
-          href="/"
           className="sidebar-experience"
           active={activeSection === SECTION_IDS[1]}
+          onClick={() => onLinkClick?.(SECTION_IDS[1])}
         >
           experience
         </FuncLink>
         <FuncLink
-          href="/"
           className="sidebar-projects"
           active={activeSection === SECTION_IDS[2]}
+          onClick={() => onLinkClick?.(SECTION_IDS[2])}
         >
           projects
         </FuncLink>
         <FuncLink
-          href="/"
           className="sidebar-stack"
           active={activeSection === SECTION_IDS[3]}
+          onClick={() => onLinkClick?.(SECTION_IDS[3])}
         >
           stack
         </FuncLink>

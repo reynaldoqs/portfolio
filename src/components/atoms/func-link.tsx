@@ -1,16 +1,21 @@
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface FuncLinkProps {
-  href: string;
   children: React.ReactNode;
   className?: string;
   active?: boolean;
+  onClick?: () => void;
 }
-export function FuncLink({ href, children, className, active }: FuncLinkProps) {
+export function FuncLink({
+  children,
+  className,
+  active,
+  onClick,
+}: FuncLinkProps) {
   return (
-    <Link
-      href={href}
+    <button
+      type="button"
+      onClick={onClick}
       className={cn(
         "text-stone-400 font-medium hover:text-stone-200 transition-colors duration-300",
         active && "text-stone-200",
@@ -19,6 +24,6 @@ export function FuncLink({ href, children, className, active }: FuncLinkProps) {
     >
       <span className="text-indigo-500">Me</span>.{children}
       ()
-    </Link>
+    </button>
   );
 }
