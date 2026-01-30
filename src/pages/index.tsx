@@ -2,7 +2,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Inter, Roboto_Mono } from "next/font/google";
 import { useLayoutEffect, useRef, useState } from "react";
 import {
   AnimatedLoader,
@@ -13,19 +12,9 @@ import {
   Sidebar,
   Stack,
 } from "@/components";
+import { interFont, monoFont } from "@/constants/fonts";
 import { SECTION_IDS } from "@/constants/layout";
 
-const mono_font = Roboto_Mono({
-  variable: "--mono-font",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const inter = Inter({
-  variable: "--inter-font",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 export default function Home() {
@@ -77,7 +66,7 @@ export default function Home() {
     <>
       <div
         id="smooth-wrapper"
-        className={`${mono_font.className} absolute inset-0 container mx-auto`}
+        className={`${monoFont.className} absolute inset-0 container mx-auto`}
       >
         <Sidebar
           className="w-[200px] sm:w-[250px] md:w-[300px] h-full fixed z-30"
@@ -87,7 +76,7 @@ export default function Home() {
         <div
           ref={containerRef}
           id="smooth-content"
-          className={`${inter.className} pl-[200px] sm:pl-[250px] md:pl-[300px] flex flex-col flex-1`}
+          className={`${interFont.className} pl-[200px] sm:pl-[250px] md:pl-[300px] flex flex-col flex-1`}
         >
           <ProfileOverview
             className="w-full h-dvh main-section"

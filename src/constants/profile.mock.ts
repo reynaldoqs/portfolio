@@ -1,14 +1,19 @@
-export const mockProfile = {
+import type { Profile, Tech } from "@/types/profile";
+
+export const mockProfile: Profile = {
   fullName: "Reynaldo Quispe",
   title: "Software Engineer",
   avatar: "/images/avatar.png",
-  summary:
+  summary: [
     "UX-focused full stack and mobile developer with 7+ years of experience building user-friendly products for web and mobile. Background in graphic design and backend development. I enjoy turning UX principles into clean, accessible, and scalable interfaces.",
+    "I'm a quick learner and I'm always looking to improve my skills and stay up to date with the latest technologies and trends in the industry.",
+  ],
   links: {
     email: "reynaldoqs@gmail.com",
     linkedin: "https://www.linkedin.com/in/reynaldoqs/",
     github: "https://github.com/reynaldoqs",
     calendly: "https://calendly.com/reynaldoqs/30min",
+    resume: "/resume.pdf",
   },
   statistics: {
     projects: 23,
@@ -21,7 +26,7 @@ export const mockProfile = {
       title: "Portfolio",
       description:
         "This is my portfolio website, where I showcase my work and skills as a software engineer.",
-      tech: ["react", "typescript", "gsap", "tailwind"],
+      techIds: ["react", "typescript", "gsap", "tailwind"],
       link: "https://reynaldoqs.github.io/portfolio_spa",
       github: "https://github.com/reynaldoqs/portfolio_spa",
       category: "web",
@@ -34,7 +39,7 @@ export const mockProfile = {
       title: "Paw Finder",
       description:
         "Web app to reunite lost pets with owners using image embeddings and AI-powered similarity matching.",
-      tech: ["react", "nextjs", "supabase", "tailwind", "zod", "rhf"],
+      techIds: ["react", "nextjs", "supabase", "tailwind", "zod", "rhf"],
       link: "https://paw-finder-gold.vercel.app/",
       github: "https://github.com/reynaldoqs/paw-finder",
       category: "web",
@@ -47,7 +52,7 @@ export const mockProfile = {
       title: "CCI Web Dashboard",
       description:
         "Financial investing platform for opening accounts, portfolio monitoring, and transaction history.",
-      tech: [
+      techIds: [
         "react",
         "typescript",
         "redux",
@@ -72,7 +77,7 @@ export const mockProfile = {
       title: "CCI Mobile App",
       description:
         "Mobile financial investing platform for CCI Puesto de Bolsa with portfolio and transaction management.",
-      tech: ["react-native", "typescript", "redux", "graphql", "auth0"],
+      techIds: ["react-native", "typescript", "redux", "graphql", "auth0"],
       link: "https://play.google.com/store/apps/details?id=com.ccimobile",
       github: "",
       category: "mobile",
@@ -85,7 +90,7 @@ export const mockProfile = {
       title: "Vecinos App",
       description:
         "Platform connecting neighbors with each other and local businesses.",
-      tech: ["react-native", "typescript", "redux", "react-query", "zod"],
+      techIds: ["react-native", "typescript", "redux", "react-query", "zod"],
       link: "https://play.google.com/store/apps/details?id=com.vecinosui",
       github: "",
       category: "mobile",
@@ -101,7 +106,7 @@ export const mockProfile = {
       role: "Frontend / Mobile Developer",
       description:
         "Built and maintained CCI investing platform (web and mobile).",
-      tech: ["react", "react-native", "typescript", "redux", "graphql"],
+      techIds: ["react", "react-native", "typescript", "redux", "graphql"],
       from: "2021",
       to: "Present",
     },
@@ -110,7 +115,7 @@ export const mockProfile = {
       link: "https://www.vecinos.com/",
       role: "Mobile Developer",
       description: "Developed Vecinos mobile app and landing page.",
-      tech: ["react-native", "react", "typescript", "redux"],
+      techIds: ["react-native", "react", "typescript", "redux"],
       from: "2019",
       to: "2022",
     },
@@ -120,95 +125,176 @@ export const mockProfile = {
       role: "Fullstack Developer",
       description:
         "Commercial real estate software: listings, CRM, and deal workflows.",
-      tech: ["react", "typescript", "ruby", "rails", "postgresql", "graphql"],
+      techIds: [
+        "react",
+        "typescript",
+        "ruby",
+        "rails",
+        "postgresql",
+        "graphql",
+      ],
       from: "2018",
       to: "2020",
     },
   ],
-  skills: [
+  stacks: [
     {
-      id: "react",
-      name: "React",
-      category: "frontend",
-      keywords: ["reactjs", "hooks", "spa", "components"],
+      title: "Frontend",
+      description: "Modern UI engineering with strong DX and accessibility.",
+      techIds: [
+        "react",
+        "typescript",
+        "nextjs",
+        "tailwind",
+        "redux",
+        "react-query",
+        "zod",
+        "rhf",
+      ],
     },
     {
-      id: "typescript",
-      name: "TypeScript",
-      category: "frontend",
-      keywords: ["ts", "typed"],
+      title: "Mobile",
+      description: "Cross-platform apps with shared patterns and tooling.",
+      techIds: ["react-native"],
     },
     {
-      id: "nextjs",
-      name: "Next.js",
-      category: "frontend",
-      keywords: ["next", "ssr", "ssg"],
+      title: "Backend",
+      description: "APIs, databases, and production-focused integrations.",
+      techIds: ["node", "graphql", "postgresql", "ruby", "rails", "supabase"],
     },
     {
-      id: "tailwind",
-      name: "Tailwind CSS",
-      category: "frontend",
-      keywords: ["tailwindcss", "utility"],
-    },
-    {
-      id: "react-native",
-      name: "React Native",
-      category: "mobile",
-      keywords: ["rn", "mobile", "ios", "android"],
-    },
-    {
-      id: "redux",
-      name: "Redux",
-      category: "frontend",
-      keywords: ["state", "store"],
-    },
-    {
-      id: "graphql",
-      name: "GraphQL",
-      category: "backend",
-      keywords: ["api", "query"],
-    },
-    {
-      id: "zod",
-      name: "Zod",
-      category: "frontend",
-      keywords: ["validation", "schema"],
-    },
-    {
-      id: "rhf",
-      name: "React Hook Form",
-      category: "frontend",
-      keywords: ["forms", "rhf"],
-    },
-    {
-      id: "node",
-      name: "Node.js",
-      category: "backend",
-      keywords: ["nodejs", "server"],
-    },
-    {
-      id: "postgresql",
-      name: "PostgreSQL",
-      category: "backend",
-      keywords: ["postgres", "sql", "db"],
-    },
-    {
-      id: "jest",
-      name: "Jest",
-      category: "testing",
-      keywords: ["unit", "test"],
-    },
-    {
-      id: "playwright",
-      name: "Playwright",
-      category: "testing",
-      keywords: ["e2e", "browser"],
-    },
-    {
-      id: "storybook",
-      name: "Storybook",
-      category: "testing",
-      keywords: ["components", "ui"],
+      title: "Testing & UI systems",
+      description: "Component-driven development and reliable test coverage.",
+      techIds: ["storybook", "jest", "playwright"],
     },
   ],
 };
+
+export const mockTechs: Tech[] = [
+  {
+    id: "react",
+    name: "React",
+    experience: 6,
+    keywords: ["react", "reactjs", "hooks", "spa"],
+  },
+  {
+    id: "typescript",
+    name: "TypeScript",
+    experience: 6,
+    keywords: ["typescript", "ts", "types"],
+  },
+  {
+    id: "nextjs",
+    name: "Next.js",
+    experience: 4,
+    keywords: ["next", "nextjs", "ssr", "ssg"],
+  },
+  {
+    id: "tailwind",
+    name: "Tailwind CSS",
+    experience: 4,
+    keywords: ["tailwind", "tailwindcss", "css", "utility"],
+  },
+  {
+    id: "gsap",
+    name: "GSAP",
+    experience: 2,
+    keywords: ["gsap", "animation", "timeline"],
+  },
+  {
+    id: "redux",
+    name: "Redux",
+    experience: 5,
+    keywords: ["redux", "state", "store"],
+  },
+  {
+    id: "react-query",
+    name: "React Query",
+    experience: 3,
+    keywords: ["react-query", "tanstack", "query", "cache"],
+  },
+  {
+    id: "zod",
+    name: "Zod",
+    experience: 3,
+    keywords: ["zod", "validation", "schema"],
+  },
+  {
+    id: "rhf",
+    name: "React Hook Form",
+    experience: 3,
+    keywords: ["react-hook-form", "rhf", "forms"],
+  },
+  {
+    id: "react-native",
+    name: "React Native",
+    experience: 5,
+    keywords: ["react-native", "rn", "ios", "android"],
+  },
+  {
+    id: "graphql",
+    name: "GraphQL",
+    experience: 4,
+    keywords: ["graphql", "api", "schema"],
+  },
+  {
+    id: "auth0",
+    name: "Auth0",
+    experience: 3,
+    keywords: ["auth0", "oauth", "authentication"],
+  },
+  {
+    id: "material-ui",
+    name: "Material UI",
+    experience: 4,
+    keywords: ["material-ui", "mui", "components", "design-system"],
+  },
+  {
+    id: "storybook",
+    name: "Storybook",
+    experience: 3,
+    keywords: ["storybook", "components", "ui", "docs"],
+  },
+  {
+    id: "playwright",
+    name: "Playwright",
+    experience: 2,
+    keywords: ["playwright", "e2e", "browser", "testing"],
+  },
+  {
+    id: "jest",
+    name: "Jest",
+    experience: 4,
+    keywords: ["jest", "unit", "testing"],
+  },
+  {
+    id: "node",
+    name: "Node.js",
+    experience: 5,
+    keywords: ["node", "nodejs", "backend", "runtime"],
+  },
+  {
+    id: "postgresql",
+    name: "PostgreSQL",
+    experience: 4,
+    keywords: ["postgres", "postgresql", "sql", "database"],
+  },
+  {
+    id: "ruby",
+    name: "Ruby",
+    experience: 3,
+    keywords: ["ruby", "backend"],
+  },
+  {
+    id: "rails",
+    name: "Ruby on Rails",
+    experience: 3,
+    keywords: ["rails", "ruby-on-rails", "mvc", "backend"],
+  },
+  {
+    id: "supabase",
+    name: "Supabase",
+    experience: 2,
+    keywords: ["supabase", "postgres", "auth", "storage"],
+  },
+];

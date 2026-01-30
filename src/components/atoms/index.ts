@@ -2,5 +2,7 @@ export * from "./animated-logo";
 export * from "./external-link";
 export * from "./func-link";
 export * from "./icon";
+export * from "./shortcut";
+export * from "./stat-item";
 export * from "./tag";
 export * from "./tag-title";

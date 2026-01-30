@@ -4,9 +4,31 @@ import Image from "next/image";
 import { useRef } from "react";
 import avatar from "@/assets/images/avatar.png";
 import { LOADER_DURATION } from "@/constants/animations.config";
+import { mockProfile } from "@/constants/profile.mock";
 import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
-import { ScrollableIndicator, ShortcutButton } from "../molecules";
+import {
+  ProfileMeta,
+  ProfileStatistics,
+  ScrollableIndicator,
+  ShortcutList,
+} from "../molecules";
+
+const shortcuts = [
+  // { shortcutKeys: ["P", "F"], shortcut: "Quick search" },
+  { shortcutKeys: ["P", "M"], shortcut: "Smart AI match" },
+  { shortcutKeys: ["M", "W"], shortcut: "Whoami" },
+  { shortcutKeys: ["M", "E"], shortcut: "Experience" },
+  { shortcutKeys: ["M", "P"], shortcut: "Projects" },
+  { shortcutKeys: ["M", "S"], shortcut: "Stack" },
+];
+
+const profileMeta = [
+  { title: "Location", value: "La Paz, Bolivia" },
+  // { title: "Phone", value: "+591 7 3090 695" },
+  { title: "Languages", value: "Spanish, English" },
+  { title: "Timezone", value: "GMT -4" },
+];
 
 interface ProfileOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -39,45 +61,54 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
       )}
       {...rest}
     >
-      <main ref={containerRef} className="flex flex-col max-w-2xl gap-8">
-        <div className="flex gap-4 profile-overview-item">
-          <Image
-            src={avatar}
-            alt="Reynaldo Quispe"
-            width={60}
-            height={60}
-            className="rounded object-cover"
-          />
-          <div>
-            <h1 className="text-5xl font-bold text-stone-300 w-fit">
-              Reynaldo Quispe
+      <main ref={containerRef} className="flex flex-col max-w-2xl gap-10">
+        <div className="flex gap-4 items-end">
+          <div className="flex-1 profile-overview-item">
+            <h2 className="text-6xl font-black text-stone-50 w-fit">Hi, I'm</h2>
+            <h1 className="text-7xl font-black text-indigo-100 w-fit">
+              {mockProfile.fullName}
             </h1>
-            <h2 className="text-xl font-medium text-stone-500">
-              Software Engineer
+            <h2 className="text-lg font-medium text-stone-300">
+              - {mockProfile.title} -
             </h2>
           </div>
         </div>
+
         <div className="flex items-start gap-4 profile-overview-item">
-          <TagTitle title="ABOUT ME" icon="user-headset" iconSize={14} />
-          <div className="text-base text-stone-400 -mt-2">
-            <p>
-              UX-focused full stack and mobile developer with 7+ years of
-              experience building user-friendly products for web and mobile.
-              Background in graphic design and backend development. I enjoy
-              turning UX principles into clean, accessible, and scalable
-              interfaces.
-            </p>
-            <p className="mt-4">
-              I'm a quick learner and I'm always looking to improve my skills
-              and stay up to date with the latest technologies and trends in the
-              industry.
-            </p>
+          <div className="flex flex-col">
+            <TagTitle title="Who I Am" icon="crown" iconSize={14} />
+            <Image
+              src={avatar}
+              alt="Reynaldo Quispe"
+              width={90}
+              height={90}
+              className="rounded object-cover profile-overview-item"
+            />
+          </div>
+          <div className="text-base text-stone-400 -mt-4">
+            {mockProfile.summary.map((paragraph, index: number) => (
+              <p
+                key={`summary-paragraph-${
+                  // biome-ignore lint/suspicious/noArrayIndexKey: comes from static array
+                  index
+                }`}
+                className="mt-4"
+              >
+                {paragraph}
+              </p>
+            ))}
           </div>
         </div>
-
-        <div className="flex gap-4 mt-2 profile-overview-item">
-          <ShortcutButton icon="search" text="Quick search" />
-          <ShortcutButton icon="open-ai" text="Smart AI match" />
+        <div className="flex  justify-between gap-4">
+          <ProfileMeta meta={profileMeta} className="profile-overview-item" />
+          <ProfileStatistics
+            className="w-fit profile-overview-item"
+            statistics={mockProfile.statistics}
+          />
+          <ShortcutList
+            shortcuts={shortcuts}
+            className="profile-overview-item"
+          />
         </div>
       </main>
       <ScrollableIndicator className="text-stone-500" size={42} />

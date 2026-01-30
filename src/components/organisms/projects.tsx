@@ -10,7 +10,7 @@ export function Projects({ className, ...rest }: ProjectsProps) {
   return (
     <section className={cn("w-full h-auto p-12", className)} {...rest}>
       <TagTitle
-        title="PROJECTS"
+        title="Projects"
         className="mb-4 text-2xl"
         icon="code-block"
         iconSize={20}

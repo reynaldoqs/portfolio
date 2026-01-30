@@ -10,11 +10,12 @@ export function Experience({ className, ...rest }: ExperienceProps) {
   return (
     <section className={cn("w-full h-auto p-12", className)} {...rest}>
       <TagTitle
-        title="EXPERIENCE"
+        title="Experience"
         className="mb-4 text-2xl"
         icon="tech-companies"
         iconSize={20}
       />
+
       <TimelineElement
         startDate="2016"
         endDate="2024"

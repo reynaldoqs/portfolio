@@ -17,7 +17,7 @@ export function TagTitle({
   return (
     <div
       className={cn(
-        "text-sm shrink-0 bg-stone-300 text-stone-900 font-bold w-fit px-2 rotate-3",
+        "text-sm shrink-0 bg-stone-300 text-stone-900 font-bold w-fit px-2 rotate-3 text-nowrap",
         className,
       )}
     >
