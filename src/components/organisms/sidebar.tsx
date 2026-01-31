@@ -1,19 +1,32 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import type { MouseEvent } from "react";
 import { useRef } from "react";
 import { ExternalLink, FuncLink, Icon } from "@/components";
 import { LOADER_DURATION } from "@/constants/animations.config";
 import { SECTION_IDS } from "@/constants/layout";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(SplitText);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(SplitText);
+}
 
 const getContactTimeline = (element: HTMLElement) => {
   const externalLinkText = element.querySelector(".external-link-text");
+  const labelToSplit = window.matchMedia?.("(min-width: 640px)")?.matches
+    ? element.querySelector(".external-link-label-desktop")
+    : element.querySelector(".external-link-label-mobile");
   const externalLinkIcon = element.querySelector(".external-link-icon");
   const tl = gsap.timeline();
-  const textElements = new SplitText(externalLinkText, {
+  if (!externalLinkText) return tl;
+
+  const splitTarget =
+    (labelToSplit as HTMLElement | null) ??
+    (externalLinkText as HTMLElement | null);
+  if (!splitTarget) return tl;
+
+  const textElements = new SplitText(splitTarget, {
     type: "chars",
     charsClass: "external-link-char",
   });
@@ -34,13 +47,13 @@ const getContactTimeline = (element: HTMLElement) => {
     },
     "-=0.05",
   );
-  tl.to(".external-link-char", {
+  tl.to(textElements.chars, {
     textDecoration: "underline wavy #991b1b",
   });
-  return tl;
+  return { tl, splitText: textElements };
 };
 const commentLinkClassName =
-  "flex items-center text-stone-400 hover:text-stone-300 group font-medium text-sm transition-colors duration-30";
+  "flex items-center text-stone-400 hover:text-stone-300 group font-medium text-xs sm:text-base transition-colors duration-300";
 
 interface SidebarProps {
   className?: string;
@@ -55,16 +68,23 @@ export function Sidebar({
 }: SidebarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<HTMLUListElement>(null);
 
   useGSAP(
     () => {
-      if (!containerRef.current || !contactRef.current) return;
+      if (!containerRef.current || !contactRef.current || !linksRef.current)
+        return;
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches)
+        return;
+
       const mainAsideTimeline = gsap.timeline({
         delay: LOADER_DURATION,
       });
-      const textElements = new SplitText(".sidebar-links", {
+      const splitTextInstances: SplitText[] = [];
+      const textElements = new SplitText(linksRef.current, {
         type: "chars",
       });
+      splitTextInstances.push(textElements);
 
       mainAsideTimeline.from(".sidebar-logo", {
         scale: 1.5,
@@ -82,7 +102,13 @@ export function Sidebar({
 
       const contactElements = gsap.utils.toArray(contactRef.current?.children);
       contactElements.forEach((element) => {
-        mainAsideTimeline.add(getContactTimeline(element as HTMLElement));
+        const result = getContactTimeline(element as HTMLElement);
+        if ("splitText" in result) {
+          splitTextInstances.push(result.splitText);
+          mainAsideTimeline.add(result.tl);
+        } else {
+          mainAsideTimeline.add(result);
+        }
       });
 
       mainAsideTimeline.to(".external-link-contact", {
@@ -107,15 +133,29 @@ export function Sidebar({
         className:
           "opacity-100 group-hover:opacity-0 external-link-text-prefix",
       });
+
+      return () => {
+        mainAsideTimeline.kill();
+        splitTextInstances.forEach((instance) => {
+          instance.revert();
+        });
+      };
     },
     { scope: containerRef },
   );
 
+  const handleLinkClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    id: (typeof SECTION_IDS)[number],
+  ) => {
+    event.preventDefault();
+    onLinkClick?.(id);
+  };
   return (
     <aside
       ref={containerRef}
       className={cn(
-        "sidebar-text border-r border-stone-600/20 bg-stone-950/60 px-4 py-8 flex flex-col gap-3 items-end justify-between",
+        "sidebar-text border-r border-stone-600/20 bg-stone-950/60 px-2 md:px-4 md:py-8 py-4 flex flex-col gap-3 items-end justify-between",
         className,
       )}
     >
@@ -123,38 +163,60 @@ export function Sidebar({
         <Icon name="logo" size={36} className="text-stone-200 sidebar-logo" />
       </div>
 
-      <div className="flex flex-col gap-4 items-end sidebar-links">
-        <FuncLink
-          active={activeSection === SECTION_IDS[0]}
-          onClick={() => onLinkClick?.(SECTION_IDS[0])}
+      <nav aria-label="Primary">
+        <ul
+          ref={linksRef}
+          className="flex flex-col gap-4 items-end sidebar-links"
         >
-          whoami
-        </FuncLink>
-        <FuncLink
-          active={activeSection === SECTION_IDS[1]}
-          onClick={() => onLinkClick?.(SECTION_IDS[1])}
-        >
-          experience
-        </FuncLink>
-        <FuncLink
-          active={activeSection === SECTION_IDS[2]}
-          onClick={() => onLinkClick?.(SECTION_IDS[2])}
-        >
-          projects
-        </FuncLink>
-        <FuncLink
-          active={activeSection === SECTION_IDS[3]}
-          onClick={() => onLinkClick?.(SECTION_IDS[3])}
-        >
-          stack
-        </FuncLink>
-      </div>
+          <li>
+            <FuncLink
+              href={`#${SECTION_IDS[0]}`}
+              mobileLabel="who"
+              active={activeSection === SECTION_IDS[0]}
+              onClick={(event) => handleLinkClick(event, SECTION_IDS[0])}
+            >
+              whoami
+            </FuncLink>
+          </li>
+          <li>
+            <FuncLink
+              href={`#${SECTION_IDS[1]}`}
+              mobileLabel="exp"
+              active={activeSection === SECTION_IDS[1]}
+              onClick={(event) => handleLinkClick(event, SECTION_IDS[1])}
+            >
+              experience
+            </FuncLink>
+          </li>
+          <li>
+            <FuncLink
+              href={`#${SECTION_IDS[2]}`}
+              mobileLabel="proj"
+              active={activeSection === SECTION_IDS[2]}
+              onClick={(event) => handleLinkClick(event, SECTION_IDS[2])}
+            >
+              projects
+            </FuncLink>
+          </li>
+          <li>
+            <FuncLink
+              href={`#${SECTION_IDS[3]}`}
+              mobileLabel="stk"
+              active={activeSection === SECTION_IDS[3]}
+              onClick={(event) => handleLinkClick(event, SECTION_IDS[3])}
+            >
+              stack
+            </FuncLink>
+          </li>
+        </ul>
+      </nav>
 
       <div className="flex flex-col gap-3 items-end py-6" ref={contactRef}>
         <ExternalLink
           href="https://github.com/yourusername"
           icon="email"
           className={cn(commentLinkClassName, "external-link-contact")}
+          mobileLabel="Email"
         >
           Email me
         </ExternalLink>
@@ -162,6 +224,7 @@ export function Sidebar({
           href="https://github.com/yourusername"
           icon="calendar"
           className={cn(commentLinkClassName, "external-link-contact")}
+          mobileLabel="Meet"
         >
           Book a meeting
         </ExternalLink>
@@ -169,6 +232,7 @@ export function Sidebar({
           href="https://github.com/yourusername"
           icon="github"
           className={cn(commentLinkClassName, "external-link-contact")}
+          mobileLabel="GH"
         >
           GitHub
         </ExternalLink>
@@ -176,6 +240,7 @@ export function Sidebar({
           href="https://github.com/yourusername"
           icon="linkedin"
           className={cn(commentLinkClassName, "external-link-contact")}
+          mobileLabel="LI"
         >
           LinkedIn
         </ExternalLink>
@@ -183,6 +248,7 @@ export function Sidebar({
           href="/resume.pdf"
           icon="download-alt"
           className={cn(commentLinkClassName, "external-link-contact")}
+          mobileLabel="CV"
         >
           Download CV
         </ExternalLink>

@@ -69,14 +69,14 @@ export default function Home() {
         className={`${monoFont.className} absolute inset-0 w-full max-w-[1280px] mx-auto `}
       >
         <Sidebar
-          className="w-[200px] sm:w-[250px] md:w-[300px] h-full fixed z-30"
+          className="w-[100px] sm:w-[230px] md:w-[300px] h-full fixed z-30"
           activeSection={activeSection}
           onLinkClick={handleLinkClick}
         />
         <div
           ref={containerRef}
           id="smooth-content"
-          className={`${interFont.className} pl-[200px] sm:pl-[250px] md:pl-[300px] flex flex-col flex-1`}
+          className={`${interFont.className} pl-[100px] sm:pl-[230px] md:pl-[300px] flex flex-col flex-1`}
         >
           <ProfileOverview
             className="w-full h-dvh main-section"
