@@ -39,7 +39,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
   useGSAP(
     () => {
       if (!containerRef.current) return;
-      gsap.from(".profile-overview-item", {
+      const tween = gsap.from(".profile-overview-item", {
         delay: LOADER_DURATION + 0.2,
         opacity: 0,
         duration: 0.5,
@@ -50,68 +50,77 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
           from: "random",
         },
       });
+      return () => tween.kill();
     },
-    { scope: containerRef },
+    { scope: containerRef, dependencies: [] },
   );
   return (
     <section
       className={cn(
-        "relative w-full h-dvh flex justify-center items-center p-6",
+        "relative w-full h-dvh flex justify-center items-center p-4 sm:p-6 md:p-10",
         className,
       )}
       {...rest}
     >
-      <main ref={containerRef} className="flex flex-col max-w-2xl gap-10">
+      <main
+        ref={containerRef}
+        className="flex flex-col w-full max-w-2xl gap-8 sm:gap-10"
+      >
         <div className="flex gap-4 items-end">
           <div className="flex-1 profile-overview-item">
-            <h2 className="text-6xl font-black text-stone-50 w-fit">Hi, I'm</h2>
-            <h1 className="text-7xl font-black text-indigo-100 w-fit">
+            <h2 className="text-4xl sm:text-6xl font-black text-stone-50 w-fit leading-none">
+              Hi, I'm
+            </h2>
+            <h1 className="text-5xl sm:text-7xl font-black text-indigo-100 w-fit leading-none wrap-break-word">
               {profile.fullName}
             </h1>
-            <h2 className="text-lg font-medium text-stone-300">
+            <h2 className="text-base sm:text-lg font-medium text-stone-300">
               - {profile.title} -
             </h2>
           </div>
         </div>
 
-        <div className="flex items-start gap-4 profile-overview-item">
-          <div className="flex flex-col">
+        <div className="flex flex-col sm:flex-row items-start gap-4 profile-overview-item">
+          <div className="flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-0">
             <TagTitle title="Who I Am" icon="crown" iconSize={14} />
             <Image
               src={avatar}
               alt="Reynaldo Quispe"
               width={90}
               height={90}
-              className="rounded object-cover profile-overview-item"
+              className="rounded object-cover profile-overview-item w-16 h-16 sm:w-[90px] sm:h-[90px]"
             />
           </div>
-          <div className="text-base text-stone-400 -mt-4">
+          <div className="text-sm sm:text-base text-stone-400 sm:-mt-4">
             {profile.summary.map((paragraph, index: number) => (
               <p
                 key={`summary-paragraph-${
                   // biome-ignore lint/suspicious/noArrayIndexKey: comes from static array
                   index
                 }`}
-                className="mt-4"
+                className="mt-3 sm:mt-4"
               >
                 {paragraph}
               </p>
             ))}
           </div>
         </div>
-        <div className="flex  justify-between gap-4">
+        <div className="flex flex-row justify-between gap-12  md:gap-4">
           <ProfileMeta meta={profileMeta} className="profile-overview-item" />
           <ProfileStatistics
-            className="w-fit profile-overview-item"
+            className="w-full sm:w-fit profile-overview-item"
             statistics={profile.statistics}
           />
           <ShortcutList
             shortcuts={shortcuts}
-            className="profile-overview-item"
+            className="profile-overview-item hidden sm:block"
           />
         </div>
       </main>
-      <ScrollableIndicator className="text-stone-500" size={42} />
+      <ScrollableIndicator
+        className="hidden sm:block text-stone-500"
+        size={42}
+      />
     </section>
   );
 }
