@@ -29,8 +29,7 @@ export type Project = {
   github: string;
   category: string; // "web" | "mobile" | "fullstack"
   rol: string; // "Frontend Developer" | "Backend Developer" | "Fullstack Developer"
-  from: string;
-  to: string;
+  priority: "high" | "medium" | "low";
 };
 
 export type Experience = {
@@ -52,7 +51,7 @@ export type Stack = {
 export type Tech = {
   id: string;
   name: string;
-  experience: number;
+  proficiency: number; // from 0 to 10 (0 = 0% - 10 = 100%)
   keywords: string[];
 };
 

@@ -1,5 +1,7 @@
+import { mockProfile, mockTechs } from "@/constants/profile.mock";
 import { cn } from "@/lib/utils";
-import { TagTitle } from "../atoms";
+import type { Tech } from "@/types/profile";
+import { BentoGrid, BentoGridItem, TagTitle } from "../atoms";
 import { ProjectCard } from "../molecules";
 
 interface ProjectsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,56 +17,17 @@ export function Projects({ className, ...rest }: ProjectsProps) {
         icon="code-block"
         iconSize={20}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-        <ProjectCard
-          index={1}
-          title="Project 1"
-          description="Description of project 1"
-          tech={["React", "Next.js", "Tailwind CSS", "TypeScript"]}
-          link="https://www.google.com"
-          github="https://www.github.com"
-          category="web"
-          rol="Fullstack Developer"
-          from="2024"
-          to="2024"
-        />
-        <ProjectCard
-          index={21}
-          title="Project 2"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-          tech={["React", "Next.js", "Tailwind CSS", "TypeScript"]}
-          link="https://www.google.com"
-          github="https://www.github.com"
-          category="web"
-          rol="Fullstack Developer"
-          from="2024"
-          to="2024"
-        />
-        <ProjectCard
-          index={1}
-          title="Project 1"
-          description="Description of project 1"
-          tech={["React", "Next.js", "Tailwind CSS", "TypeScript"]}
-          link="https://www.google.com"
-          github="https://www.github.com"
-          category="web"
-          rol="Fullstack Developer"
-          from="2024"
-          to="2024"
-        />
-        <ProjectCard
-          index={2}
-          title="Project 2"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-          tech={["React", "Next.js", "Tailwind CSS", "TypeScript"]}
-          link="https://www.google.com"
-          github="https://www.github.com"
-          category="web"
-          rol="Fullstack Developer"
-          from="2024"
-          to="2024"
-        />
-      </div>
+      <BentoGrid className="mt-12">
+        {mockProfile.projects.map((project) => (
+          <BentoGridItem
+            key={project.title}
+            // className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+            className={project.priority === "high" ? "md:col-span-2" : ""}
+          >
+            <ProjectCard project={project} />
+          </BentoGridItem>
+        ))}
+      </BentoGrid>
     </section>
   );
 }

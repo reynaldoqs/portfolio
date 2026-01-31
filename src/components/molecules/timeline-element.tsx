@@ -36,8 +36,10 @@ export function TimelineElement({
         </div>
       </div>
       <div className="flex-1 flex flex-col text-stone-400 text-base leading-relaxed">
-        <h3 className="text-lg font-medium text-stone-300">{title}</h3>
-        {subtitle && <p className="text-sm text-stone-500 mb-4">{subtitle}</p>}
+        <h3 className="text-xl font-black text-stone-300">{title}</h3>
+        {subtitle && (
+          <p className="text-sm font-medium text-stone-500 mb-4">{subtitle}</p>
+        )}
         {children}
         {tags && (
           <div className="flex flex-wrap gap-2 mt-4">

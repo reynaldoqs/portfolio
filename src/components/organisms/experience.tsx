@@ -1,3 +1,4 @@
+import { mockProfile, mockTechs } from "@/constants/profile.mock";
 import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { TimelineElement } from "../molecules";
@@ -11,54 +12,27 @@ export function Experience({ className, ...rest }: ExperienceProps) {
     <section className={cn("w-full h-auto p-12", className)} {...rest}>
       <TagTitle
         title="Experience"
-        className="mb-4 text-2xl"
+        className="mb-4 text-2xl -rotate-2"
         icon="tech-companies"
         iconSize={20}
       />
-
-      <TimelineElement
-        startDate="2016"
-        endDate="2024"
-        title="Software Engineer"
-        subtitle="Company Name"
-        className="mt-12"
-        tags={["React", "Next.js", "Tailwind CSS", "TypeScript"]}
-      >
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          quos building user-friendly products for web and mobile. Background in
-          graphic design and backend development. I enjoy turning UX principles
-          into clean, accessible, and scalable interfaces.
-        </p>
-      </TimelineElement>
-      <TimelineElement
-        startDate="2016"
-        endDate="2024"
-        title="Software Engineer"
-        subtitle="Company Name"
-        className="mt-12"
-      >
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          quos building user-friendly products for web and mobile. Background in
-          graphic design and backend development. I enjoy turning UX principles
-          into clean, accessible, and scalable interfaces.
-        </p>
-      </TimelineElement>
-      <TimelineElement
-        startDate="2016"
-        endDate="2024"
-        title="Software Engineer"
-        subtitle="Company Name"
-        className="mt-12"
-      >
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          quos building user-friendly products for web and mobile. Background in
-          graphic design and backend development. I enjoy turning UX principles
-          into clean, accessible, and scalable interfaces.
-        </p>
-      </TimelineElement>
+      {mockProfile.experience.map((experience) => (
+        <TimelineElement
+          key={experience.company}
+          startDate={experience.from}
+          endDate={experience.to}
+          title={experience.role}
+          subtitle={experience.company}
+          tags={experience.techIds.map(
+            (tech) => mockTechs.find((t) => t.id === tech)?.name ?? "Unknown",
+          )}
+          className="mt-12"
+        >
+          <p className="text-sm text-stone-400 pr-4">
+            {experience.description}
+          </p>
+        </TimelineElement>
+      ))}
     </section>
   );
 }
