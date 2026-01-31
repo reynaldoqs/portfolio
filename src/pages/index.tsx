@@ -66,7 +66,7 @@ export default function Home() {
     <>
       <div
         id="smooth-wrapper"
-        className={`${monoFont.className} absolute inset-0 container mx-auto `}
+        className={`${monoFont.className} absolute inset-0 w-full max-w-[1280px] mx-auto `}
       >
         <Sidebar
           className="w-[200px] sm:w-[250px] md:w-[300px] h-full fixed z-30"

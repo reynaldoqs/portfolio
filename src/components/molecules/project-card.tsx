@@ -1,6 +1,6 @@
 import Image from "next/image";
 import sywMobile from "@/assets/images/syw_mobile.png";
-import { mockTechs } from "@/constants/profile.mock";
+import { techs } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 import type { Project, Tech } from "@/types/profile";
 import { Icon, Tag } from "../atoms";
@@ -44,8 +44,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         <div className="relative z-10 flex flex-wrap gap-1 mt-auto">
           {techIds.map((techId) => (
             <Tag key={techId}>
-              {mockTechs.find((tech: Tech) => tech.id === techId)?.name ??
-                "Unknown"}
+              {techs.find((tech: Tech) => tech.id === techId)?.name ?? "Unknown"}
             </Tag>
           ))}
         </div>

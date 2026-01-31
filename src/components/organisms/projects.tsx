@@ -1,6 +1,5 @@
-import { mockProfile, mockTechs } from "@/constants/profile.mock";
+import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
-import type { Tech } from "@/types/profile";
 import { BentoGrid, BentoGridItem, TagTitle } from "../atoms";
 import { ProjectCard } from "../molecules";
 
@@ -18,7 +17,7 @@ export function Projects({ className, ...rest }: ProjectsProps) {
         iconSize={20}
       />
       <BentoGrid className="mt-12">
-        {mockProfile.projects.map((project) => (
+        {profile.projects.map((project) => (
           <BentoGridItem
             key={project.title}
             // className={i === 3 || i === 6 ? "md:col-span-2" : ""}

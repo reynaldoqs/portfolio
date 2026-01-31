@@ -1,4 +1,4 @@
-import { mockProfile } from "@/constants/profile.mock";
+import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { StackGroup } from "../molecules";
@@ -16,7 +16,7 @@ export function Stack({ className, ...rest }: StackProps) {
         iconSize={20}
       />
       <div className="flex flex-col gap-10">
-        {mockProfile.stacks.map((stack) => (
+        {profile.stacks.map((stack) => (
           <StackGroup key={stack.title} stack={stack} />
         ))}
       </div>

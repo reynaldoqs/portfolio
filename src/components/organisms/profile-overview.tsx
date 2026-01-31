@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import avatar from "@/assets/images/avatar.png";
 import { LOADER_DURATION } from "@/constants/animations.config";
-import { mockProfile } from "@/constants/profile.mock";
+import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import {
@@ -66,10 +66,10 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
           <div className="flex-1 profile-overview-item">
             <h2 className="text-6xl font-black text-stone-50 w-fit">Hi, I'm</h2>
             <h1 className="text-7xl font-black text-indigo-100 w-fit">
-              {mockProfile.fullName}
+              {profile.fullName}
             </h1>
             <h2 className="text-lg font-medium text-stone-300">
-              - {mockProfile.title} -
+              - {profile.title} -
             </h2>
           </div>
         </div>
@@ -86,7 +86,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
             />
           </div>
           <div className="text-base text-stone-400 -mt-4">
-            {mockProfile.summary.map((paragraph, index: number) => (
+            {profile.summary.map((paragraph, index: number) => (
               <p
                 key={`summary-paragraph-${
                   // biome-ignore lint/suspicious/noArrayIndexKey: comes from static array
@@ -103,7 +103,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
           <ProfileMeta meta={profileMeta} className="profile-overview-item" />
           <ProfileStatistics
             className="w-fit profile-overview-item"
-            statistics={mockProfile.statistics}
+            statistics={profile.statistics}
           />
           <ShortcutList
             shortcuts={shortcuts}

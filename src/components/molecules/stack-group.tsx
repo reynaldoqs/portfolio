@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { type HTMLAttributes, useState } from "react";
-import { mockTechs } from "@/constants/profile.mock";
+import { techs } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 import type { Stack, Tech } from "@/types/profile";
 
@@ -8,7 +8,7 @@ interface StackGroupProps extends HTMLAttributes<HTMLDivElement> {
   stack: Stack;
 }
 export function StackGroup({ stack, className }: StackGroupProps) {
-  const { title, description, techIds } = stack;
+  const { title, techIds } = stack;
   return (
     <div
       className={cn("flex flex-col  bg-stone-900 p-2 rounded-lg", className)}
@@ -17,9 +17,9 @@ export function StackGroup({ stack, className }: StackGroupProps) {
         {techIds.map((techId) => (
           <Brand
             key={techId}
-            name={techId}
+            name={techs.find((t: Tech) => t.id === techId)?.name ?? techId}
             proficiency={
-              mockTechs.find((t: Tech) => t.id === techId)?.proficiency ?? 0
+              techs.find((t: Tech) => t.id === techId)?.proficiency ?? 0
             }
             contrast
           />

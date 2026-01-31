@@ -1,4 +1,4 @@
-import { mockProfile, mockTechs } from "@/constants/profile.mock";
+import { profile, techs } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 import { TagTitle } from "../atoms";
 import { TimelineElement } from "../molecules";
@@ -16,7 +16,7 @@ export function Experience({ className, ...rest }: ExperienceProps) {
         icon="tech-companies"
         iconSize={20}
       />
-      {mockProfile.experience.map((experience) => (
+      {profile.experience.map((experience) => (
         <TimelineElement
           key={experience.company}
           startDate={experience.from}
@@ -24,7 +24,7 @@ export function Experience({ className, ...rest }: ExperienceProps) {
           title={experience.role}
           subtitle={experience.company}
           tags={experience.techIds.map(
-            (tech) => mockTechs.find((t) => t.id === tech)?.name ?? "Unknown",
+            (techId) => techs.find((t) => t.id === techId)?.name ?? "Unknown",
           )}
           className="mt-12"
         >
