@@ -11,9 +11,9 @@ export function StackGroup({ stack, className }: StackGroupProps) {
   const { title, techIds } = stack;
   return (
     <div
-      className={cn("flex flex-col  bg-stone-900 p-2 rounded-lg", className)}
+      className={cn("flex flex-col bg-stone-900 p-2 sm:p-3 rounded-lg", className)}
     >
-      <div className="flex flex-wrap justify-center items-center gap-10 bg-stone-950 px-6 py-10 flex-1 rounded-md">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 place-items-center gap-x-6 gap-y-8 bg-stone-950 px-4 sm:px-6 py-6 sm:py-8 lg:py-10 flex-1 rounded-md">
         {techIds.map((techId) => (
           <Brand
             key={techId}
@@ -25,8 +25,8 @@ export function StackGroup({ stack, className }: StackGroupProps) {
           />
         ))}
       </div>
-      <div className="flex px-4 py-2 justify-between gap-4 items-center">
-        <h3 className="text-lg font-bold text-stone-200">{title}</h3>
+      <div className="px-4 py-3 sm:py-2">
+        <h3 className="text-base sm:text-lg font-bold text-stone-200">{title}</h3>
       </div>
     </div>
   );
@@ -51,7 +51,7 @@ function Brand({
     .split(" ")
     .map((n) => n[0])
     .join("");
-  const normalizedName = name.replace(" ", "").toLocaleLowerCase();
+  const normalizedName = name.replaceAll(" ", "").toLocaleLowerCase();
   const showCustom = imageError;
   const cells = 12;
   const filledCells = Math.max(
@@ -68,11 +68,11 @@ function Brand({
           width={40}
           height={40}
           unoptimized
-          className="w-10 h-10 md:w-[40px] md:h-[40px] object-contain"
+          className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
           onError={() => setImageError(true)}
         />
       ) : (
-        <div className="w-10 h-10 md:w-[40px] md:h-[40px] bg-gray-300 rounded-lg p-1 flex items-center justify-center font-bold text-lg md:text-xl text-black">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-300 rounded-lg p-1 flex items-center justify-center font-bold text-base sm:text-lg text-black">
           {nameInitials}
         </div>
       )}
@@ -92,7 +92,7 @@ function Brand({
           </div>
         </div>
       </div>
-      <h3 className="text-stone-400 font-medium mt-2 text-center text-xs md:text-sm leading-tight">
+      <h3 className="text-stone-400 font-medium mt-2 text-center text-[11px] sm:text-xs md:text-sm leading-tight max-w-24 wrap-break-word">
         {name}
       </h3>
     </div>

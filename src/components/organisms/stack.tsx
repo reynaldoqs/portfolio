@@ -8,7 +8,10 @@ interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 export function Stack({ className, ...rest }: StackProps) {
   return (
-    <section className={cn("w-full h-auto p-12", className)} {...rest}>
+    <section
+      className={cn("w-full h-auto p-4 sm:p-6 md:p-12", className)}
+      {...rest}
+    >
       <TagTitle
         title="Stack"
         className="mb-12 text-2xl"
