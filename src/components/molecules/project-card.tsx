@@ -4,6 +4,16 @@ import { cn } from "@/lib/utils";
 import type { Project, Tech } from "@/types/profile";
 import { Icon, Tag } from "../atoms";
 
+function rotationFromString(input: string, minDeg: number, maxDeg: number) {
+  let hash = 5381;
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash * 33) ^ input.charCodeAt(i);
+  }
+  const range = maxDeg - minDeg + 1;
+  const normalized = (hash >>> 0) % range;
+  return minDeg + normalized;
+}
+
 interface ProjectCardProps {
   project: Project;
   className?: string;
@@ -12,23 +22,27 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
   const { title, description, techIds, link, github, category, rol } = project;
   const backgroundImage = project.backgroundImage;
   const hasBackground = Boolean(backgroundImage);
+  const backgroundRotation = hasBackground
+    ? rotationFromString(`${title}|${link}`, -20, 10)
+    : 0;
   return (
     <div
       className={cn(
-        "flex flex-col bg-stone-900 p-2 sm:p-3 rounded-lg group",
+        "flex flex-col bg-stone-900 p-2 sm:p-3 md:p-4 rounded-lg group",
         className,
       )}
     >
-      <div className="relative overflow-hidden flex flex-col gap-3 bg-stone-950 p-4 sm:p-5 flex-1 rounded-md min-w-0">
+      <div className="relative overflow-hidden flex flex-col gap-3 bg-stone-950 p-4 sm:p-5 md:p-6 flex-1 rounded-md min-w-0">
         {backgroundImage && (
-          <div className="hidden sm:block pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 z-0 opacity-20 group-hover:opacity-60 transition-all duration-300">
+          <div className="hidden md:block pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 z-0 opacity-20 group-hover:opacity-60 transition-all duration-300">
             <Image
               src={backgroundImage}
               alt=""
               aria-hidden
               width={320}
               height={640}
-              className="w-[180px] md:w-[220px] lg:w-[240px] h-auto object-contain -rotate-12 grayscale group-hover:grayscale-0 transition-all duration-300"
+              className="w-[200px] lg:w-[240px] h-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+              style={{ transform: `rotate(${backgroundRotation}deg)` }}
             />
           </div>
         )}
@@ -38,7 +52,9 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         <p
           className={cn(
             "relative z-10 text-sm font-medium text-pretty",
-            hasBackground ? "text-stone-300 sm:pr-24" : "text-stone-400",
+            hasBackground
+              ? "text-stone-300 pr-0 sm:pr-4 md:pr-10"
+              : "text-stone-400",
           )}
         >
           {description}
