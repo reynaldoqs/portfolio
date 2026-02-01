@@ -9,7 +9,10 @@ interface ProjectsProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Projects({ className, ...rest }: ProjectsProps) {
   return (
-    <section className={cn("w-full h-auto p-12", className)} {...rest}>
+    <section
+      className={cn("w-full h-auto p-4 sm:p-6 md:p-12", className)}
+      {...rest}
+    >
       <TagTitle
         title="Projects"
         className="mb-4 text-2xl"
