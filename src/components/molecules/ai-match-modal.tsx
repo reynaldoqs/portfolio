@@ -1,5 +1,5 @@
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -78,7 +78,14 @@ export function AiMatchModal({
       gsap.fromTo(
         panelRef.current,
         { opacity: 0, scale: 0.92, x: 22, y: 22 },
-        { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.32, ease: "power3.out" },
+        {
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          y: 0,
+          duration: 0.32,
+          ease: "power3.out",
+        },
       );
     },
     { dependencies: [isMounted] },
@@ -87,7 +94,7 @@ export function AiMatchModal({
   if (!isMounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 pointer-events-none">
+    <div className="fixed inset-0 z-50 pointer-events-none max-w-[1280px] mx-auto">
       <div
         className={cn(
           "absolute top-0 bottom-0 right-0 pointer-events-auto",
@@ -139,4 +146,3 @@ export function AiMatchModal({
     </div>
   );
 }
-
