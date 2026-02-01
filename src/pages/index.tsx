@@ -4,6 +4,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import {
+  AiMatchButton,
   AiMatchModal,
   AnimatedLoader,
   Experience,
@@ -87,13 +88,7 @@ export default function Home() {
           onLinkClick={handleLinkClick}
         />
 
-        <button
-          type="button"
-          onClick={openAiMatch}
-          className="absolute z-40 bottom-6 right-6 bg-stone-200 text-stone-950 text-xs sm:text-sm font-bold px-3 py-2 rounded-md hover:bg-stone-100 transition-colors"
-        >
-          AI Match
-        </button>
+        <AiMatchButton onClick={openAiMatch} />
 
         <div
           ref={containerRef}
