@@ -1,3 +1,4 @@
+export * from "./ai-match";
 export * from "./experience";
 export * from "./footer";
 export * from "./profile-overview";

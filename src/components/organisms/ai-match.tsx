@@ -1,7 +1,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { monoFont } from "@/constants/fonts";
 import { cn } from "@/lib/utils";
+import { Icon } from "../atoms";
+import { MatchHeader } from "../molecules";
 
 interface AiMatchModalProps {
   open: boolean;
@@ -20,21 +23,15 @@ export function AiMatchModal({
 }: AiMatchModalProps) {
   const [isMounted, setIsMounted] = useState(open);
   const panelRef = useRef<HTMLDivElement>(null);
-  const backdropRef = useRef<HTMLButtonElement>(null);
 
   const closeWithAnimation = useCallback(() => {
-    if (!backdropRef.current || !panelRef.current) {
+    if (!panelRef.current) {
       setIsMounted(false);
       onClosed?.();
       return;
     }
 
-    gsap.killTweensOf([backdropRef.current, panelRef.current]);
-    gsap.to(backdropRef.current, {
-      opacity: 0,
-      duration: 0.18,
-      ease: "power1.out",
-    });
+    gsap.killTweensOf(panelRef.current);
     gsap.to(panelRef.current, {
       opacity: 0,
       scale: 0.97,
@@ -66,15 +63,10 @@ export function AiMatchModal({
   useGSAP(
     () => {
       if (!isMounted) return;
-      if (!backdropRef.current || !panelRef.current) return;
+      if (!panelRef.current) return;
 
-      gsap.killTweensOf([backdropRef.current, panelRef.current]);
+      gsap.killTweensOf(panelRef.current);
       gsap.set(panelRef.current, { transformOrigin: "100% 100%" });
-      gsap.fromTo(
-        backdropRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.2, ease: "power1.out" },
-      );
       gsap.fromTo(
         panelRef.current,
         { opacity: 0, scale: 0.92, x: 22, y: 22 },
@@ -94,7 +86,9 @@ export function AiMatchModal({
   if (!isMounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 pointer-events-none max-w-[1280px] mx-auto">
+    <div
+      className={`${monoFont.className} absolute inset-0 z-50 pointer-events-none max-w-[1280px] mx-auto`}
+    >
       <div
         className={cn(
           "absolute top-0 bottom-0 right-0 pointer-events-auto",
@@ -103,42 +97,32 @@ export function AiMatchModal({
         aria-modal="true"
         role="dialog"
       >
-        <button
-          type="button"
-          ref={backdropRef}
-          className="absolute inset-0 bg-stone-950/70 backdrop-blur-sm"
-          onClick={onClose}
-          aria-label="Close modal"
-        />
-
         <div
           ref={panelRef}
           className={cn(
-            "absolute inset-0 bg-stone-950 border-l border-stone-800/60",
+            "absolute inset-0 bg-stone-950/70 backdrop-blur-sm border-l border-stone-800/60",
             className,
           )}
         >
-          <div className="h-full w-full p-4 sm:p-6 md:p-8 overflow-auto">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h2 className="text-stone-100 text-xl sm:text-2xl font-black">
-                  AI Match
-                </h2>
-                <p className="text-stone-400 text-sm mt-1">
-                  Este overlay cubre solo `#smooth-content`.
-                </p>
-              </div>
+          <div className="h-full w-full flex flex-col gap-4 p-4 sm:p-6 md:p-8 overflow-auto">
+            <MatchHeader onClose={onClose} />
+
+            <div className="bg-stone-900/80 flex-1 rounded-2xl p-4 md:p-6 flex flex-col">
+              <textarea
+                placeholder="Tell me what you're looking for…"
+                className={cn(
+                  "w-full flex-1 min-h-0 text-sm resize-none bg-transparent text-stone-100 placeholder:text-stone-500",
+                  "border-0 p-0 outline-none appearance-none shadow-none",
+                  "focus:outline-none focus:ring-0 focus:shadow-none",
+                  "focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none",
+                )}
+              />
               <button
                 type="button"
-                onClick={onClose}
-                className="text-stone-300 hover:text-stone-100 transition-colors text-sm font-bold"
+                className="text-stone-100 text-sm font-bold self-end cursor-pointer"
               >
-                Close
+                Match <Icon name="upload" size={20} />
               </button>
-            </div>
-
-            <div className="mt-8 text-stone-300 text-sm leading-relaxed">
-              Coloca aquí el contenido del AI Match.
             </div>
           </div>
         </div>
