@@ -36,7 +36,7 @@ export type Experience = {
   company: string;
   link: string;
   role: string;
-  description: string;
+  description: string[];
   techIds: string[];
   from: string;
   to: string;

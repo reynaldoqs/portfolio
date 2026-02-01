@@ -325,6 +325,24 @@ export const techs: Tech[] = [
     proficiency: 2,
     keywords: ["wordpress"],
   },
+  {
+    id: "swagger",
+    name: "Swagger",
+    proficiency: 2,
+    keywords: ["swagger"],
+  },
+  {
+    id: "openapi",
+    name: "OpenAPI",
+    proficiency: 2,
+    keywords: ["openapi"],
+  },
+  {
+    id: "ci/cd",
+    name: "CI/CD",
+    proficiency: 2,
+    keywords: ["ci/cd"],
+  },
 ];
 
 export const stacks: Stack[] = [
@@ -556,33 +574,81 @@ export const projects: Project[] = [
 
 export const experience: Experience[] = [
   {
-    company: "CCI Puesto de Bolsa",
-    link: "https://cci.com.pa",
-    role: "Frontend / Mobile Developer",
-    description:
-      "Built and maintained CCI investing platform (web and mobile).",
-    techIds: ["react", "react-native", "typescript", "redux", "graphql"],
+    company: "Making Sense",
+    link: "https://makingsense.com/",
+    role: "Fullstack - Mobile - UX/UI Developer",
+    description: [
+      "Built and maintained a stock market web application and analytics dashboard using Next.js, with a strong focus on performance, SEO, accessibility (a11y), and scalable component architecture. Implemented data-intensive dashboards by integrating GraphQL APIs and managing server state with React Query, while developing secure authentication and role-based access control (RBAC) with Auth0. Translated Figma designs into pixel-perfect, responsive UIs using Material UI, monitored production performance with UXCam and Datadog, and collaborated closely with backend, product, and design teams to deliver internationalized (i18n), scalable solutions for financial data visualization.",
+      "Developed a couponing mobile application for iOS and Android that allows users to redeem reward points for gifts and discounts. Designed and built a scalable component library using React Native and Storybook to improve UI consistency, reusability, and development efficiency. Implemented authentication, push notifications, and in-app purchases, while optimizing front-end performance through efficient state management, lazy loading, and component-level optimizations, using Storybook for isolated development and team collaboration.",
+      "Developed a social network mobile application for iOS and Android using React Native, delivering smooth, responsive, and reliable user experiences. Built and maintained a marketing landing page with React.js and Vite, focused on conversion-oriented UI. Managed server state and data fetching with React Query to improve caching and data consistency, implemented authentication, push notifications, and in-app purchases to increase user engagement, and collaborated closely with designers to deliver pixel-perfect UI/UX across both mobile and web platforms.",
+    ],
+    techIds: [
+      "react",
+      "react-native",
+      "typescript",
+      "nextjs",
+      "redux",
+      "graphql",
+      "auth0",
+      "uxcam",
+      "datadog",
+      "material-ui",
+      "storybook",
+      "react-query",
+      "zod",
+      "rhf",
+      "vite",
+      "firebase",
+      "supabase",
+      "chatgpt",
+      "jest",
+      "testing-library",
+    ],
     from: "2021",
-    to: "Present",
+    to: "2025",
   },
   {
-    company: "Vecinos",
-    link: "https://www.vecinos.com/",
-    role: "Mobile Developer",
-    description: "Developed Vecinos mobile app and landing page.",
-    techIds: ["react-native", "react", "typescript", "redux"],
-    from: "2019",
-    to: "2022",
-  },
-  {
-    company: "Buildout",
-    link: "https://www.buildout.com/",
+    company: "Jala Soft",
+    link: "https://www.jalasoft.com/",
     role: "Fullstack Developer",
-    description:
-      "Commercial real estate software: listings, CRM, and deal workflows.",
-    techIds: ["react", "typescript", "ruby", "rails", "postgresql", "graphql"],
+    description: [
+      "Developed and maintained a real estate landing page using React.js with a strong focus on UI/UX, building reusable and maintainable components following KISS, DRY, and SOLID principles. Integrated the front end with Ruby on Rails APIs, managing data fetching, state, and error handling, while collaborating with backend services and cross-functional teams to ensure secure, reliable data flow and deliver features aligned with business goals. Also contributed to CI/CD workflows and deployment processes to ensure stable front-end releases.",
+    ],
+    techIds: [
+      "react",
+      "typescript",
+      "ruby",
+      "rails",
+      "rest",
+      "ci/cd",
+      "html5",
+      "css",
+    ],
+    from: "2019",
+    to: "2021",
+  },
+  {
+    company:
+      "Agencia de Gobierno Electrónico y Tecnologías de Información y Comunicación",
+    link: "https://agetic.gob.bo/",
+    role: "Backend Developer",
+    description: [
+      "Developed government applications focused on backend services supporting national digital platforms, using Vue.js for API integration and validation. Designed, built, and documented RESTful APIs with Swagger (OpenAPI) consumed by multiple government agencies, while implementing and maintaining backend services and system integrations to ensure reliable communication across public platforms and improve system performance and reliability.",
+    ],
+    techIds: ["vue", "typescript", "rest", "swagger", "openapi"],
     from: "2018",
-    to: "2020",
+    to: "2019",
+  },
+  {
+    company: "Camex Bolivia",
+    link: "https://www.camexbolivia.com.bo/",
+    role: "Intern",
+    description: [
+      "Designed, implemented, and maintained landing pages and web systems, improving UI, fixing front-end bugs, and ensuring consistent functionality. Updated and optimized WordPress pages for better layout, structure, and responsiveness, while collaborating with the team to translate business needs into front-end solutions.",
+    ],
+    techIds: ["html5", "css", "wordpress"],
+    from: "2017",
+    to: "2018",
   },
 ];
 

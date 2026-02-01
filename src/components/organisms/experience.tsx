@@ -28,9 +28,18 @@ export function Experience({ className, ...rest }: ExperienceProps) {
           )}
           className="mt-12"
         >
-          <p className="text-sm text-stone-400 pr-4">
-            {experience.description}
-          </p>
+          {experience.description.map((description, index) => (
+            <p
+              className={cn(
+                "text-sm text-stone-400 pr-4 mt-4",
+                index === 0 && "mt-0",
+              )}
+              // biome-ignore lint/suspicious/noArrayIndexKey: we need to use the index as key
+              key={index}
+            >
+              {description}
+            </p>
+          ))}
         </TimelineElement>
       ))}
     </section>
