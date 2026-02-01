@@ -1,7 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Streamdown } from "streamdown";
 import { monoFont } from "@/constants/fonts";
+import { useAiMatchStream } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { Icon } from "../atoms";
 import { MatchHeader } from "../molecules";
@@ -23,6 +25,17 @@ export function AiMatchModal({
 }: AiMatchModalProps) {
   const [isMounted, setIsMounted] = useState(open);
   const panelRef = useRef<HTMLDivElement>(null);
+  const {
+    textareaRef,
+    requirements,
+    setRequirements,
+    markdown,
+    status,
+    error,
+    isShowingResult,
+    match,
+    clear,
+  } = useAiMatchStream();
 
   const closeWithAnimation = useCallback(() => {
     if (!panelRef.current) {
@@ -59,6 +72,13 @@ export function AiMatchModal({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isMounted, onClose]);
+  const onPrimaryAction = useCallback(() => {
+    if (isShowingResult) {
+      clear();
+      return;
+    }
+    match();
+  }, [isShowingResult, clear, match]);
 
   useGSAP(
     () => {
@@ -107,21 +127,53 @@ export function AiMatchModal({
           <div className="h-full w-full flex flex-col gap-4 p-4 sm:p-6 md:p-8 overflow-auto">
             <MatchHeader onClose={onClose} />
 
-            <div className="bg-stone-900/80 flex-1 rounded-2xl p-4 md:p-6 flex flex-col">
-              <textarea
-                placeholder="Tell me what you're looking for…"
-                className={cn(
-                  "w-full flex-1 min-h-0 text-sm resize-none bg-transparent text-stone-100 placeholder:text-stone-500",
-                  "border-0 p-0 outline-none appearance-none shadow-none",
-                  "focus:outline-none focus:ring-0 focus:shadow-none",
-                  "focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none",
+            <div className="bg-stone-900/80 flex-1 min-h-0 rounded-2xl p-4 md:p-6 flex flex-col gap-4">
+              <div className="flex-1 min-h-0 overflow-auto rounded-xl bg-stone-950/40 p-3">
+                {isShowingResult ? (
+                  error ? (
+                    <p className="text-sm text-red-200 whitespace-pre-wrap">
+                      {error}
+                    </p>
+                  ) : (
+                    <Streamdown isAnimating={status === "streaming"}>
+                      {markdown}
+                    </Streamdown>
+                  )
+                ) : (
+                  <textarea
+                    ref={textareaRef}
+                    value={requirements}
+                    onChange={(e) => setRequirements(e.target.value)}
+                    placeholder="Paste the role requirements…"
+                    className={cn(
+                      "h-full w-full text-sm resize-none bg-transparent text-stone-100 placeholder:text-stone-500",
+                      "border-0 p-0 outline-none appearance-none shadow-none",
+                      "focus:outline-none focus:ring-0 focus:shadow-none",
+                      "focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none",
+                    )}
+                  />
                 )}
-              />
+              </div>
               <button
                 type="button"
-                className="text-stone-100 text-sm font-bold self-end cursor-pointer"
+                onClick={onPrimaryAction}
+                disabled={!isShowingResult && !requirements.trim()}
+                className={cn(
+                  "text-stone-100 text-sm font-bold self-end cursor-pointer inline-flex items-center gap-2",
+                  !isShowingResult &&
+                    !requirements.trim() &&
+                    "opacity-60 cursor-not-allowed",
+                )}
               >
-                Match <Icon name="upload" size={20} />
+                {isShowingResult ? (
+                  <>
+                    Clear <Icon name="close" size={18} />
+                  </>
+                ) : (
+                  <>
+                    Match <Icon name="upload" size={20} />
+                  </>
+                )}
               </button>
             </div>
           </div>

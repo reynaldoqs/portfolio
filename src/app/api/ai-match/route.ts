@@ -84,11 +84,5 @@ export async function POST(req: Request) {
     messages: await convertToModelMessages(messages),
   });
 
-  return result.toUIMessageStreamResponse({
-    onError: (error) => {
-      if (error instanceof Error) return error.message;
-      if (typeof error === "string") return error;
-      return "An error occurred.";
-    },
-  });
+  return result.toTextStreamResponse();
 }
