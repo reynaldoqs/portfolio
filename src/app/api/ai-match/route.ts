@@ -1,8 +1,45 @@
 import { openai } from "@ai-sdk/openai";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import {
+  convertToModelMessages,
+  generateText,
+  streamText,
+  type UIMessage,
+} from "ai";
 import { experience, profile, techs } from "@/constants/profile.data";
 
 export const maxDuration = 30;
+
+function looksLikeJobRequirements(input: string) {
+  const text = input.trim().toLowerCase();
+  if (text.length < 80) return false;
+
+  const keywords = [
+    "job",
+    "role",
+    "position",
+    "responsibilities",
+    "responsibility",
+    "requirements",
+    "required",
+    "qualifications",
+    "experience",
+    "years",
+    "skills",
+    "stack",
+    "must have",
+    "nice to have",
+    "salary",
+    "benefits",
+    "location",
+    "remote",
+    "onsite",
+    "hybrid",
+  ];
+
+  let hits = 0;
+  for (const k of keywords) if (text.includes(k)) hits++;
+  return hits >= 2;
+}
 
 function toResumeText() {
   const topTechs = techs
@@ -22,44 +59,67 @@ function toResumeText() {
     .join("\n");
 
   return [
-    `Nombre: ${profile.fullName}`,
-    `Título: ${profile.title}`,
+    `FullName: ${profile.fullName}`,
+    `Title: ${profile.title}`,
     "",
-    "Resumen:",
+    "Summary:",
     profile.summary.map((s) => `- ${s}`).join("\n"),
     "",
-    "Habilidades (top):",
+    "Skills (top):",
     topTechs,
     "",
-    "Experiencia:",
+    "Experience:",
     exp,
   ].join("\n");
 }
 
 function systemPrompt(resumeText: string) {
   return [
-    "Eres un reclutador técnico/ATS muy estricto y útil.",
-    "Tu tarea: comparar los REQUISITOS del puesto (pegados por el usuario) contra el CV del candidato (abajo) y producir un informe claro en español.",
+    "You are a strict but helpful technical recruiter/ATS evaluator.",
+    "Your task: compare the USER-PASTED JOB REQUIREMENTS against the candidate CV (below).",
     "",
-    "Reglas:",
-    "- No inventes experiencia: si no está en el CV, dilo explícitamente como gap.",
-    "- Distingue entre: (1) match directo, (2) match parcial/transferible, (3) no match.",
-    "- Para match parcial, explica qué faltaría demostrar/aprender y sugiere un plan corto (2–6 semanas) con acciones concretas.",
-    "- Si faltan datos del puesto (seniority, stack, dominio), menciona supuestos.",
-    "- Formato: usa Markdown con secciones y bullets.",
+    "Rules:",
+    "- Do not invent experience. If it is not in the CV, call it out as a gap.",
+    "- When a requirement is expressed as 'X years of experience in <tech>': use the candidate's proficiency score for that tech as a proxy.",
+    "  - If proficiency is >= 6/10 for that tech, mark the years requirement as a Direct match regardless of the requested years.",
+    "  - Example: '4 years of experience in React' should be considered a Direct match if React proficiency is 6/10 or higher.",
+    "- Output must be in ENGLISH.",
+    "- Output must be VALID Markdown.",
+    "- Primary output must be a single Markdown table.",
+    "- Use match levels: Direct, Partial (Transferable), Gap.",
+    "- Keep the table focused: list the 10–14 most important requirements only (deduplicate similar ones).",
+    "- For Partial/Gap, include a short, actionable ramp-up plan (1–2 weeks) in the Notes column.",
     "",
-    "Estructura de salida (usa estos títulos):",
-    "## Match fuerte",
-    "## Match parcial (transferible)",
-    "## No match / gaps",
-    "## Preguntas para aclarar el puesto",
-    "## Recomendaciones (cómo mejorar el fit)",
+    "Required output structure:",
+    "1) A Markdown table with these columns:",
+    "| Requirement | Match | Evidence from CV | What's missing / Plan |",
+    "2) After the table, add a short closing line that communicates a growth mindset, e.g.:",
+    '"I genuinely enjoy learning and ramping up quickly on new tools and domains."',
     "",
-    "CV del candidato:",
+    "Candidate CV:",
     "```",
     resumeText,
     "```",
   ].join("\n");
+}
+
+async function validateJobRequirementsInput(text: string, modelName: string) {
+  const result = await generateText({
+    model: openai(modelName),
+    temperature: 0,
+    prompt: [
+      "Classify the following USER INPUT.",
+      "If it is a job description / role requirements for a job, answer exactly: VALID",
+      "Otherwise answer exactly: INVALID",
+      "",
+      "USER INPUT:",
+      "```",
+      text,
+      "```",
+    ].join("\n"),
+  });
+
+  return result.text.trim().toUpperCase() === "VALID";
 }
 
 export async function POST(req: Request) {
@@ -70,14 +130,34 @@ export async function POST(req: Request) {
   const lastText =
     last?.parts?.find((p) => p.type === "text")?.text?.trim() ?? "";
   if (!lastText) {
-    return new Response("Missing requirements text.", { status: 400 });
+    return new Response(
+      "Invalid input. Please paste the job description or role requirements.",
+      { status: 400 },
+    );
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    return new Response("Missing OPENAI_API_KEY.", { status: 500 });
+    return new Response("Server misconfigured: missing OPENAI_API_KEY.", {
+      status: 500,
+    });
   }
 
   const modelName = process.env.AI_MATCH_MODEL ?? "gpt-4o-mini";
+  if (!looksLikeJobRequirements(lastText)) {
+    return new Response(
+      "That doesn't look like job requirements. Please paste a job description (responsibilities/requirements/skills) and try again.",
+      { status: 400 },
+    );
+  }
+
+  const isValid = await validateJobRequirementsInput(lastText, modelName);
+  if (!isValid) {
+    return new Response(
+      "Invalid input. Please paste the job description or role requirements (not a general message) and try again.",
+      { status: 400 },
+    );
+  }
+
   const result = streamText({
     model: openai(modelName),
     system: systemPrompt(toResumeText()),

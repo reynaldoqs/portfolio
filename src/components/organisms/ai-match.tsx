@@ -146,7 +146,7 @@ export function AiMatchModal({
                     onChange={(e) => setRequirements(e.target.value)}
                     placeholder="Paste the role requirements…"
                     className={cn(
-                      "h-full w-full text-sm resize-none bg-transparent text-stone-100 placeholder:text-stone-500",
+                      "h-[98%] w-full text-sm resize-none bg-transparent text-stone-100 placeholder:text-stone-500",
                       "border-0 p-0 outline-none appearance-none shadow-none",
                       "focus:outline-none focus:ring-0 focus:shadow-none",
                       "focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none",

@@ -33,13 +33,13 @@ export const techs: Tech[] = [
   {
     id: "typescript",
     name: "TypeScript",
-    proficiency: 5,
+    proficiency: 6,
     keywords: ["typescript", "ts"],
   },
   {
     id: "react",
     name: "React",
-    proficiency: 6,
+    proficiency: 7,
     keywords: ["react", "reactjs"],
   },
   {
