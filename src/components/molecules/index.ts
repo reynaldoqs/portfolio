@@ -1,4 +1,5 @@
 export * from "./animated-loader";
+export * from "./ai-match-modal";
 export * from "./profile-meta";
 export * from "./profile-statistics";
 export * from "./project-card";
