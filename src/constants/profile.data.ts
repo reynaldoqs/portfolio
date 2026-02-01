@@ -1,3 +1,8 @@
+import buildoutWeb from "@/assets/images/buildout_web.png";
+import cciMobile from "@/assets/images/cci_mobile.png";
+import portfolioWeb from "@/assets/images/portfolio_web.png";
+import sywMobile from "@/assets/images/syw_mobile.png";
+import vecinosMoile from "@/assets/images/vecinos_mobile.png";
 import type {
   Experience,
   Profile,
@@ -343,6 +348,12 @@ export const techs: Tech[] = [
     proficiency: 2,
     keywords: ["ci/cd"],
   },
+  {
+    id: "zustand",
+    name: "Zustand",
+    proficiency: 8,
+    keywords: ["zustand"],
+  },
 ];
 
 export const stacks: Stack[] = [
@@ -412,22 +423,30 @@ export const projects: Project[] = [
     id: "portfolio",
     title: "Portfolio",
     description:
-      "This is my portfolio website, where I showcase my work and skills as a software engineer.",
-    techIds: ["react", "typescript", "gsap", "tailwind"],
+      "This is my personal portfolio website, where I showcase my projects, professional experience, and technical skills as a software engineer. It highlights the technologies I work with, the problems I have solved, and the solutions I have built through real-world applications.",
+    techIds: [
+      "react",
+      "nextjs",
+      "typescript",
+      "zustand",
+      "chatgpt",
+      "gsap",
+      "tailwind",
+    ],
     link: "https://reynaldoqs.github.io/portfolio_spa",
     github: "https://github.com/reynaldoqs/portfolio_spa",
     category: "web",
     rol: "Fullstack Developer",
     priority: "high",
+    backgroundImage: portfolioWeb,
   },
   {
     id: "paw-finder",
     title: "Paw Finder",
     rol: "Fullstack Developer",
     description:
-      "PawFinder is a web application designed to help reunite lost pets with their owners. The platform uses image embeddings to analyze and compare pet photos, enabling accurate matching between lost and found pets based on visual similarity.",
+      "PawFinder is a web application that helps reunite lost pets with their owners by analyzing and comparing pet photos using image embeddings to find visually similar matches.",
     techIds: [
-      "react",
       "nextjs",
       "shadcn",
       "supabase",
@@ -440,32 +459,27 @@ export const projects: Project[] = [
     link: "https://paw-finder-gold.vercel.app/",
     github: "https://github.com/reynaldoqs/paw-finder",
     category: "web",
-    priority: "high",
+    priority: "medium",
   },
   {
     id: "cci-dashboard",
-    title: "CCI Web Dashboard",
+    title: "CCI Dashboard",
     rol: "Frontend Developer",
     description:
-      "CCI is a financial investing platform that lets users open and manage investment accounts, monitor portfolio performance, view transaction history, and track the value and composition of their financial assets.",
+      "CCI is an investment platform that allows users to manage accounts, track portfolio performance, and monitor asset value.",
+
     techIds: [
-      "react",
+      "nextjs",
       "typescript",
       "redux",
-      "rest",
       "graphql",
       "auth0",
       "uxcam",
       "datadog",
       "material-ui",
-      "sse",
       "react-query",
-      "zod",
       "rhf",
-      "storybook",
       "jest",
-      "testing-library",
-      "playwright",
     ],
     link: "https://dev.cci-non-prod.link/",
     github: "",
@@ -482,16 +496,18 @@ export const projects: Project[] = [
       "react-native",
       "typescript",
       "redux",
-      "rest",
       "graphql",
       "auth0",
       "uxcam",
       "datadog",
+      "jest",
+      "testing-library",
     ],
     link: "https://play.google.com/store/apps/details?id=com.ccimobile",
     github: "",
     category: "mobile",
-    priority: "medium",
+    priority: "high",
+    backgroundImage: cciMobile,
   },
   {
     id: "shop-your-way",
@@ -499,11 +515,22 @@ export const projects: Project[] = [
     rol: "Mobile Developer",
     description:
       "Online shopping and rewards platform where members earn points on purchases and redeem them for discounts and products.",
-    techIds: ["react-native", "typescript", "redux", "rest", "storybook"],
+    techIds: [
+      "react-native",
+      "typescript",
+      "react-query",
+      "zod",
+      "redux",
+      "rest",
+      "storybook",
+      "jest",
+      "testing-library",
+    ],
     link: "https://play.google.com/store/apps/details?id=com.sears.shopyourway&hl=en",
     github: "",
     category: "mobile",
     priority: "medium",
+    backgroundImage: sywMobile,
   },
   {
     id: "vecinos-app",
@@ -514,7 +541,7 @@ export const projects: Project[] = [
     techIds: [
       "react-native",
       "typescript",
-      "styled-components",
+      "rest",
       "redux",
       "react-query",
       "zod",
@@ -524,6 +551,7 @@ export const projects: Project[] = [
     github: "",
     category: "mobile",
     priority: "medium",
+    backgroundImage: vecinosMoile,
   },
   {
     id: "vecinos-landing",
@@ -538,7 +566,7 @@ export const projects: Project[] = [
     priority: "low",
   },
   {
-    id: "buildout",
+    id: "buildout_web",
     title: "Buildout",
     rol: "Fullstack Developer",
     description:
@@ -550,13 +578,13 @@ export const projects: Project[] = [
       "rails",
       "postgresql",
       "rest",
-      "graphql",
       "ruby",
     ],
     link: "https://www.buildout.com/",
     github: "",
     category: "web",
-    priority: "low",
+    priority: "high",
+    backgroundImage: buildoutWeb,
   },
   {
     id: "camex-bolivia",

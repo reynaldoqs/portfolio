@@ -25,11 +25,11 @@ export function TimelineElement({
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row md:items-start gap-4 md:gap-8 w-full",
+        "flex flex-col md:flex-row md:items-start gap-4 md:gap-6 w-full",
         className,
       )}
     >
-      <div className="shrink-0 md:w-32 lg:w-40">
+      <div className="shrink-0 md:w-30 lg:w-40">
         <div className="flex items-center gap-2 text-stone-500 text-sm font-mono">
           <span className="whitespace-nowrap">{dateRange}</span>
           <span className="hidden md:inline-flex flex-1 h-px bg-stone-700/80" />

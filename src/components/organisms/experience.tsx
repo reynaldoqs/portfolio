@@ -9,7 +9,10 @@ interface ExperienceProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Experience({ className, ...rest }: ExperienceProps) {
   return (
-    <section className={cn("w-full h-auto p-12", className)} {...rest}>
+    <section
+      className={cn("w-full h-auto p-4 sm:p-6 md:p-12", className)}
+      {...rest}
+    >
       <TagTitle
         title="Experience"
         className="mb-4 text-2xl -rotate-2"
@@ -31,7 +34,7 @@ export function Experience({ className, ...rest }: ExperienceProps) {
           {experience.description.map((description, index) => (
             <p
               className={cn(
-                "text-sm text-stone-400 pr-4 mt-4",
+                "text-sm text-stone-400 mt-4",
                 index === 0 && "mt-0",
               )}
               // biome-ignore lint/suspicious/noArrayIndexKey: we need to use the index as key

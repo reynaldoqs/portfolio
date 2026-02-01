@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 export type Profile = {
   fullName: string;
   title: string;
@@ -24,6 +26,7 @@ export type Project = {
   id: string;
   title: string;
   description: string;
+  backgroundImage?: StaticImageData;
   techIds: string[]; // ["react", "typescript", "node"]
   link: string;
   github: string;
