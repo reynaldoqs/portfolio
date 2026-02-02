@@ -214,7 +214,7 @@ export function Sidebar({
 
       <div className="flex flex-col gap-3 items-end py-6" ref={contactRef}>
         <ExternalLink
-          href={}
+          href={profile.links.email}
           icon="email"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="Email"
