@@ -459,7 +459,7 @@ export const projects: Project[] = [
       "tailwind",
     ],
     link: "https://reynaldoqs.github.io/portfolio_spa",
-    github: "https://github.com/reynaldoqs/portfolio_spa",
+    github: "https://github.com/reynaldoqs/portfolio",
     category: "web",
     rol: "Fullstack Developer",
     priority: "high",
