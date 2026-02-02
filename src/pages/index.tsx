@@ -1,4 +1,5 @@
 import { useGSAP } from "@gsap/react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -112,6 +113,7 @@ export default function Home() {
         contentAreaClassName="left-[100px] sm:left-[230px] md:left-[280px] "
       />
       <AnimatedLoader />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ""} />
     </>
   );
 }
