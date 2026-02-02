@@ -107,7 +107,7 @@ export function AiMatchModal({
 
   return (
     <div
-      className={`${monoFont.className} absolute inset-0 z-50 pointer-events-none max-w-[1280px] mx-auto`}
+      className={`${monoFont.className} fixed inset-0 z-50 pointer-events-none max-w-[1280px] mx-auto`}
     >
       <div
         className={cn(
