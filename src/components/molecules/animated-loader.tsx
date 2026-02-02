@@ -40,6 +40,10 @@ export function AnimatedLoader({
       tl.to(overlay, {
         delay: fadeDelaySeconds,
         opacity: 0,
+        duration: 0.25,
+        onComplete: () => {
+          overlay.style.pointerEvents = "none";
+        },
       });
       tl.to(overlay, {
         display: "none",
@@ -63,7 +67,7 @@ export function AnimatedLoader({
     <div
       ref={overlayRef}
       className={cn(
-        "absolute w-full h-dvh top-0 left-0 flex justify-center items-center bg-stone-900 z-50",
+        "fixed inset-0 flex justify-center items-center bg-stone-900 z-50",
         className,
       )}
     >
