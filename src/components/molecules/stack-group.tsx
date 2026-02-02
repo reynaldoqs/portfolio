@@ -11,7 +11,10 @@ export function StackGroup({ stack, className }: StackGroupProps) {
   const { title, techIds } = stack;
   return (
     <div
-      className={cn("flex flex-col bg-stone-900 p-2 sm:p-3 rounded-lg", className)}
+      className={cn(
+        "flex flex-col bg-stone-900 p-2 sm:p-3 rounded-lg",
+        className,
+      )}
     >
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 place-items-center gap-x-6 gap-y-8 bg-stone-950 px-4 sm:px-6 py-6 sm:py-8 lg:py-10 flex-1 rounded-md">
         {techIds.map((techId) => (
@@ -26,7 +29,9 @@ export function StackGroup({ stack, className }: StackGroupProps) {
         ))}
       </div>
       <div className="px-4 py-3 sm:py-2">
-        <h3 className="text-base sm:text-lg font-bold text-stone-200">{title}</h3>
+        <h3 className="text-base sm:text-lg font-bold text-stone-200">
+          {title}
+        </h3>
       </div>
     </div>
   );
@@ -38,6 +43,22 @@ interface BrandProps extends HTMLAttributes<HTMLDivElement> {
   totalExperience?: number;
   contrast?: boolean;
 }
+
+const SIMPLEICONS_BLOCKLIST = new Set([
+  "zustand",
+  "mobilefirst",
+  "pixelperfect",
+  "atomicdesign",
+  "playwright",
+  "restapi",
+  "sse",
+  "chatgptsdk",
+  "embeddings",
+  "reactnative",
+  "ci/cd",
+  "uxcam",
+  "pendo",
+]);
 
 function Brand({
   name,
@@ -52,7 +73,7 @@ function Brand({
     .map((n) => n[0])
     .join("");
   const normalizedName = name.replaceAll(" ", "").toLocaleLowerCase();
-  const showCustom = imageError;
+  const showCustom = imageError || SIMPLEICONS_BLOCKLIST.has(normalizedName);
   const cells = 12;
   const filledCells = Math.max(
     0,

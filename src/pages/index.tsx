@@ -50,7 +50,6 @@ export default function Home() {
   }, []);
 
   const handleSectionEnter = (index: number) => {
-    console.log("section entered", index);
     setActiveSection(SECTION_IDS[index]);
   };
 

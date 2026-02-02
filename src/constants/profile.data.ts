@@ -80,7 +80,7 @@ export const techs: Tech[] = [
   },
   {
     id: "material-ui",
-    name: "Material UI",
+    name: "MUI",
     proficiency: 4,
     keywords: ["mui", "material-ui"],
   },
@@ -254,7 +254,7 @@ export const techs: Tech[] = [
   },
   {
     id: "shadcn",
-    name: "shadcn/ui",
+    name: "shadcnUI",
     proficiency: 6,
     keywords: ["shadcn", "shadcn-ui"],
   },
@@ -338,7 +338,7 @@ export const techs: Tech[] = [
   },
   {
     id: "openapi",
-    name: "OpenAPI",
+    name: "OpenAPI Initiative",
     proficiency: 4,
     keywords: ["openapi"],
   },
