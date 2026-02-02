@@ -1,8 +1,9 @@
-import buildoutWeb from "@/assets/images/buildout_web.png";
-import cciMobile from "@/assets/images/cci_mobile.png";
-import portfolioWeb from "@/assets/images/portfolio_web.png";
-import sywMobile from "@/assets/images/syw_mobile.png";
-import vecinosMoile from "@/assets/images/vecinos_mobile.png";
+import avatar from "@/assets/images/avatar.webp";
+import buildoutWeb from "@/assets/images/buildout_web.webp";
+import cciMobile from "@/assets/images/cci_mobile.webp";
+import portfolioWeb from "@/assets/images/portfolio_web.webp";
+import sywMobile from "@/assets/images/syw_mobile.webp";
+import vecinosMoile from "@/assets/images/vecinos_mobile.webp";
 import type {
   Experience,
   Profile,
@@ -707,7 +708,7 @@ export const experience: Experience[] = [
 export const profile: Profile = {
   fullName: "Reynaldo Quispe",
   title: "Software Engineer",
-  avatar: "/images/avatar.png",
+  avatar: avatar.src,
   summary: [
     "UX-focused full stack and mobile developer with 7+ years of experience building user-friendly products for web and mobile.",
     "Background in graphic design and backend development, helping me connect design ideas with solid engineering.",

@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
-import avatar from "@/assets/images/avatar.png";
+import avatar from "@/assets/images/avatar.webp";
 import { LOADER_DURATION } from "@/constants/animations.config";
 import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
