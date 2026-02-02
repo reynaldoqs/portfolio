@@ -715,7 +715,7 @@ export const profile: Profile = {
     "I focus on intuitive UI systems with consistent design, usability, and pixel-perfect details.",
   ],
   links: {
-    email: "reynaldoqs@gmail.com",
+    email: "mailto:reynaldoqs@gmail.com",
     calendly: "https://calendly.com/reynaldoqs/fullstack-30-minute-meeting",
     linkedin: "https://www.linkedin.com/in/reynaldoqs/",
     github: "https://github.com/reynaldoqs",
