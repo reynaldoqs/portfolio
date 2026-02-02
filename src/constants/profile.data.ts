@@ -716,7 +716,7 @@ export const profile: Profile = {
   ],
   links: {
     email: "reynaldoqs@gmail.com",
-    calendly: "https://calendly.com/reynaldoqs/30min",
+    calendly: "https://calendly.com/reynaldoqs/fullstack-30-minute-meeting",
     linkedin: "https://www.linkedin.com/in/reynaldoqs/",
     github: "https://github.com/reynaldoqs",
     resume: "/resume.pdf",

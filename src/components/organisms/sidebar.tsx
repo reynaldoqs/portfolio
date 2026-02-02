@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { ExternalLink, FuncLink, Icon } from "@/components";
 import { LOADER_DURATION } from "@/constants/animations.config";
 import { SECTION_IDS } from "@/constants/layout";
+import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
@@ -213,7 +214,7 @@ export function Sidebar({
 
       <div className="flex flex-col gap-3 items-end py-6" ref={contactRef}>
         <ExternalLink
-          href="https://github.com/yourusername"
+          href={}
           icon="email"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="Email"
@@ -221,7 +222,7 @@ export function Sidebar({
           Email me
         </ExternalLink>
         <ExternalLink
-          href="https://github.com/yourusername"
+          href={profile.links.calendly}
           icon="calendar"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="Meet"
@@ -229,7 +230,7 @@ export function Sidebar({
           Book a meeting
         </ExternalLink>
         <ExternalLink
-          href="https://github.com/yourusername"
+          href={profile.links.github}
           icon="github"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="GH"
@@ -237,7 +238,7 @@ export function Sidebar({
           GitHub
         </ExternalLink>
         <ExternalLink
-          href="https://github.com/yourusername"
+          href={profile.links.linkedin}
           icon="linkedin"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="LI"

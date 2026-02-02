@@ -128,7 +128,7 @@ export function AiMatchModal({
             <MatchHeader onClose={onClose} />
 
             <div className="bg-stone-900/80 flex-1 min-h-0 rounded-2xl p-4 md:p-6 flex flex-col gap-4">
-              <div className="flex-1 min-h-0 overflow-auto rounded-xl bg-stone-950/40 p-3">
+              <div className="flex-1 min-h-0 overflow-auto rounded-xl  p-0">
                 {isShowingResult ? (
                   error ? (
                     <p className="text-sm text-red-200 whitespace-pre-wrap">
@@ -144,6 +144,12 @@ export function AiMatchModal({
                     ref={textareaRef}
                     value={requirements}
                     onChange={(e) => setRequirements(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key !== "Enter") return;
+                      if (e.shiftKey) return;
+                      e.preventDefault();
+                      onPrimaryAction();
+                    }}
                     placeholder="Paste the role requirements…"
                     className={cn(
                       "h-[98%] w-full text-sm resize-none bg-transparent text-stone-100 placeholder:text-stone-500",

@@ -20,6 +20,7 @@ export function useAiMatchStream() {
 
   const clear = useCallback(() => {
     abortRef.current?.abort();
+    setRequirements("");
     setMarkdown("");
     setError(null);
     setStatus("idle");
