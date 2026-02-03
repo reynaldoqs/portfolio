@@ -458,7 +458,7 @@ export const projects: Project[] = [
       "gsap",
       "tailwind",
     ],
-    link: "https://reynaldoqs.github.io/portfolio_spa",
+    link: "https://reynaldoqs.vercel.app",
     github: "https://github.com/reynaldoqs/portfolio",
     category: "web",
     rol: "Fullstack Developer",
