@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Streamdown } from "streamdown";
 import { monoFont } from "@/constants/fonts";
+import { analytics } from "@/lib/analytics";
 import { useAiMatchStream } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { Icon } from "../atoms";
@@ -25,6 +26,7 @@ export function AiMatchModal({
 }: AiMatchModalProps) {
   const [isMounted, setIsMounted] = useState(open);
   const panelRef = useRef<HTMLDivElement>(null);
+  const didTrackCompletionRef = useRef(false);
   const {
     textareaRef,
     requirements,
@@ -72,11 +74,26 @@ export function AiMatchModal({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isMounted, onClose]);
+
+  useEffect(() => {
+    if (status === "streaming") didTrackCompletionRef.current = false;
+    if (status === "idle" && markdown && !didTrackCompletionRef.current) {
+      didTrackCompletionRef.current = true;
+      analytics.aiMatchSuccess();
+    }
+    if (status === "error" && !didTrackCompletionRef.current) {
+      didTrackCompletionRef.current = true;
+      analytics.aiMatchError();
+    }
+  }, [status, markdown]);
+
   const onPrimaryAction = useCallback(() => {
     if (isShowingResult) {
+      analytics.aiMatchClear();
       clear();
       return;
     }
+    analytics.aiMatchSubmit();
     match();
   }, [isShowingResult, clear, match]);
 

@@ -5,6 +5,7 @@ import type { MouseEvent } from "react";
 import { useRef } from "react";
 import { ExternalLink, FuncLink, Icon } from "@/components";
 import { LOADER_DURATION } from "@/constants/animations.config";
+import { analytics } from "@/lib/analytics";
 import { SECTION_IDS } from "@/constants/layout";
 import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
@@ -218,6 +219,7 @@ export function Sidebar({
           icon="email"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="Email"
+          onClick={() => analytics.sidebarContactClick("email")}
         >
           Email me
         </ExternalLink>
@@ -226,6 +228,7 @@ export function Sidebar({
           icon="calendar"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="Meet"
+          onClick={() => analytics.sidebarContactClick("calendly")}
         >
           Book a meeting
         </ExternalLink>
@@ -234,6 +237,7 @@ export function Sidebar({
           icon="github"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="GH"
+          onClick={() => analytics.sidebarContactClick("github")}
         >
           GitHub
         </ExternalLink>
@@ -242,6 +246,7 @@ export function Sidebar({
           icon="linkedin"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="LI"
+          onClick={() => analytics.sidebarContactClick("linkedin")}
         >
           LinkedIn
         </ExternalLink>
@@ -250,6 +255,7 @@ export function Sidebar({
           icon="download-alt"
           className={cn(commentLinkClassName, "external-link-contact")}
           mobileLabel="CV"
+          onClick={() => analytics.sidebarContactClick("resume")}
         >
           Download CV
         </ExternalLink>

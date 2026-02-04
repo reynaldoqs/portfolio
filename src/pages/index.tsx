@@ -17,6 +17,7 @@ import {
 } from "@/components";
 import { interFont, monoFont } from "@/constants/fonts";
 import { SECTION_IDS } from "@/constants/layout";
+import { analytics } from "@/lib/analytics";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -29,11 +30,13 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const openAiMatch = useCallback(() => {
+    analytics.aiMatchOpen();
     setIsAiMatchOpen(true);
     smootherRef.current?.paused(true);
   }, []);
 
   const closeAiMatch = useCallback(() => {
+    analytics.aiMatchClose();
     setIsAiMatchOpen(false);
   }, []);
 
@@ -73,6 +76,7 @@ export default function Home() {
 
   const handleLinkClick = (id: (typeof SECTION_IDS)[number]) => {
     if (isAiMatchOpen) return;
+    analytics.sidebarNavClick(id);
     smootherRef.current?.scrollTo(`#${id}`, true, "center center");
   };
 
