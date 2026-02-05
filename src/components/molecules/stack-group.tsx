@@ -6,32 +6,29 @@ import type { Stack, Tech } from "@/types/profile";
 
 interface StackGroupProps extends HTMLAttributes<HTMLDivElement> {
   stack: Stack;
+  title: string;
 }
 export function StackGroup({ stack, className }: StackGroupProps) {
-  const { title, techIds } = stack;
   return (
-    <div
-      className={cn(
-        "flex flex-col bg-stone-900 p-2 sm:p-3 rounded-lg",
-        className,
-      )}
-    >
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 place-items-center gap-x-6 gap-y-8 bg-stone-950 px-4 sm:px-6 py-6 sm:py-8 lg:py-10 flex-1 rounded-md">
-        {techIds.map((techId) => (
-          <Brand
-            key={techId}
-            name={techs.find((t: Tech) => t.id === techId)?.name ?? techId}
-            proficiency={
-              techs.find((t: Tech) => t.id === techId)?.proficiency ?? 0
-            }
-            contrast
-          />
-        ))}
-      </div>
-      <div className="px-4 py-3 sm:py-2">
-        <h3 className="text-base sm:text-lg font-bold text-stone-200">
-          {title}
+    <div className={cn("mt-12 flex flex-col", className)}>
+      <div className="bg-stone-900/30 border border-stone-800/30 rounded-xl p-6">
+        <h3 className="text-base font-semibold text-stone-300 mb-1">
+          {stack.title}
         </h3>
+        <p className="text-stone-500 text-xs mb-6">{stack.description}</p>
+        <div className="flex flex-wrap gap-6 mt-8">
+          {stack.techIds.map((techId) => {
+            const tech = techs.find((t: Tech) => t.id === techId);
+            return tech ? (
+              <Brand
+                key={techId}
+                name={tech.name ?? techId}
+                proficiency={tech.proficiency}
+                contrast
+              />
+            ) : null;
+          })}
+        </div>
       </div>
     </div>
   );
@@ -62,7 +59,7 @@ const SIMPLEICONS_BLOCKLIST = new Set([
 
 function Brand({
   name,
-  proficiency = 1, // from 0 to 10 (0 = 0% - 10 = 100%)
+  proficiency = 1,
   contrast,
   className,
   ...rest
@@ -74,48 +71,47 @@ function Brand({
     .join("");
   const normalizedName = name.replaceAll(" ", "").toLocaleLowerCase();
   const showCustom = imageError || SIMPLEICONS_BLOCKLIST.has(normalizedName);
-  const cells = 12;
+  const cells = 5;
   const filledCells = Math.max(
     0,
     Math.min(cells, Math.round((proficiency / 10) * cells)),
   );
 
   return (
-    <div className={cn("flex flex-col items-center", className)} {...rest}>
+    <div
+      className={cn("flex flex-col items-center gap-2", className)}
+      {...rest}
+    >
       {!showCustom ? (
         <Image
           src={`https://cdn.simpleicons.org/${normalizedName}${contrast ? "/EEEEEE" : ""}`}
           alt={name}
-          width={40}
-          height={40}
+          width={36}
+          height={36}
           unoptimized
-          className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+          className="w-8 h-8 sm:w-9 sm:h-9 object-contain opacity-80"
           onError={() => setImageError(true)}
         />
       ) : (
-        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-300 rounded-lg p-1 flex items-center justify-center font-bold text-base sm:text-lg text-black">
+        <div className="w-8 h-8 sm:w-9 sm:h-9 bg-stone-700 rounded-md flex items-center justify-center font-medium text-sm text-stone-300">
           {nameInitials}
         </div>
       )}
-      <div className="mt-2 flex items-center gap-2">
-        <div className="relative w-12 h-3 rounded border border-stone-600/60 p-[2px]">
-          <div className="flex h-full gap-[2px]">
-            {Array.from({ length: cells }).map((_, i) => (
-              <span
-                // biome-ignore lint/suspicious/noArrayIndexKey: stable, static cells
-                key={i}
-                className={cn(
-                  "h-full flex-1 rounded-[2px]",
-                  i < filledCells ? "bg-stone-300/50" : "bg-stone-500/20",
-                )}
-              />
-            ))}
-          </div>
-        </div>
+      <div className="flex gap-[3px]">
+        {Array.from({ length: cells }).map((_, i) => (
+          <span
+            // biome-ignore lint/suspicious/noArrayIndexKey: static cells
+            key={i}
+            className={cn(
+              "w-1.5 h-1.5 rounded-full",
+              i < filledCells ? "bg-stone-400" : "bg-stone-700",
+            )}
+          />
+        ))}
       </div>
-      <h3 className="text-stone-400 font-medium mt-2 text-center text-[11px] sm:text-xs md:text-sm leading-tight max-w-24 wrap-break-word">
+      <span className="text-stone-500 text-[10px] sm:text-xs text-center leading-tight max-w-20">
         {name}
-      </h3>
+      </span>
     </div>
   );
 }

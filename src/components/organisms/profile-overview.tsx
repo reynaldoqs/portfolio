@@ -71,7 +71,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
             <h2 className="text-4xl sm:text-6xl font-black text-stone-50 w-fit leading-none">
               Hi, I'm
             </h2>
-            <h1 className="text-5xl sm:text-7xl font-black text-indigo-100 w-fit leading-none wrap-break-word">
+            <h1 className="text-5xl sm:text-7xl font-black text-indigo-300 w-fit leading-none wrap-break-word">
               {profile.fullName}
             </h1>
             <h2 className="text-base sm:text-lg font-medium text-stone-300">

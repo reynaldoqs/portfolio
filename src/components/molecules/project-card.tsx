@@ -4,96 +4,83 @@ import { cn } from "@/lib/utils";
 import type { Project, Tech } from "@/types/profile";
 import { Icon, Tag } from "../atoms";
 
-function rotationFromString(input: string, minDeg: number, maxDeg: number) {
-  let hash = 5381;
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 33) ^ input.charCodeAt(i);
-  }
-  const range = maxDeg - minDeg + 1;
-  const normalized = (hash >>> 0) % range;
-  return minDeg + normalized;
-}
-
 interface ProjectCardProps {
   project: Project;
   className?: string;
 }
+
 export function ProjectCard({ project, className }: ProjectCardProps) {
   const { title, description, techIds, link, github, category, rol } = project;
   const backgroundImage = project.backgroundImage;
-  const hasBackground = Boolean(backgroundImage);
-  const backgroundRotation = hasBackground
-    ? rotationFromString(`${title}|${link}`, -20, 10)
-    : 0;
+
   return (
-    <div
+    <article
       className={cn(
-        "flex flex-col bg-stone-900 p-2 sm:p-3 md:p-4 rounded-lg group",
+        "group relative bg-stone-900/40 border border-stone-800/40 rounded-lg overflow-hidden transition-all duration-500 hover:border-indigo-500/30 h-full",
         className,
       )}
     >
-      <div className="relative overflow-hidden flex flex-col gap-3 bg-stone-950 p-4 sm:p-5 md:p-6 flex-1 rounded-md min-w-0">
+      <div className="relative p-6 sm:p-8 min-h-[280px] flex flex-col h-full">
         {backgroundImage && (
-          <div className="hidden md:block pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 z-0 opacity-20 group-hover:opacity-60 transition-all duration-300">
+          <div className="hidden md:block pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 z-0 opacity-10 group-hover:opacity-25 transition-all duration-700">
             <Image
               src={backgroundImage}
               alt=""
               aria-hidden
-              width={320}
-              height={640}
-              className="w-[200px] lg:w-[240px] h-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-              style={{ transform: `rotate(${backgroundRotation}deg)` }}
+              width={260}
+              height={520}
+              className="w-[180px] md:w-[220px] h-auto object-contain grayscale rotate-[-15deg]"
             />
           </div>
         )}
-        <h3 className="relative z-10 text-xl sm:text-2xl leading-tight font-black text-stone-200 sm:pr-4">
-          {title}
-        </h3>
-        <p
-          className={cn(
-            "relative z-10 text-sm font-medium text-pretty",
-            hasBackground
-              ? "text-stone-300 pr-0 sm:pr-4 md:pr-10"
-              : "text-stone-400",
-          )}
-        >
-          {description}
-        </p>
-        <div className="relative z-10 flex flex-wrap gap-1.5 mt-auto">
-          {techIds.map((techId) => (
-            <Tag key={techId}>
-              {techs.find((tech: Tech) => tech.id === techId)?.name ??
-                "Unknown"}
-            </Tag>
-          ))}
+        <div className="relative z-10 flex-1 flex flex-col">
+          <div className="flex items-baseline gap-3 mb-5">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-indigo-400/70">
+              {category}
+            </span>
+            <span className="text-stone-700">·</span>
+            <span className="text-[10px] text-stone-600">{rol}</span>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-semibold text-stone-200 mb-4 tracking-tight">
+            {title}
+          </h3>
+          <p className="text-stone-500 text-sm leading-relaxed mb-6 flex-1">
+            {description}
+          </p>
+          <div className="flex flex-wrap gap-2 mt-auto">
+            {techIds.map((techId) => (
+              <Tag
+                key={techId}
+                tag={
+                  techs.find((tech: Tech) => tech.id === techId)?.name ?? techId
+                }
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col sm:flex-row px-4 py-3 sm:py-2 justify-between gap-3 sm:gap-4 sm:items-center">
-        <div className="flex flex-col">
-          <p className="text-sm capitalize text-stone-300">{category}</p>
-          <p className="text-sm text-stone-500">{rol}</p>
-        </div>
-        <div className="flex items-center gap-3 sm:ml-auto">
-          {github && (
+        <div className="relative z-10 mt-6 pt-4 border-t border-stone-800/50 flex items-center justify-between">
+          {github ? (
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-400"
+              className="text-xs text-stone-600 hover:text-indigo-400 transition-colors"
             >
-              <Icon name="github" size={20} />
+              Source Code
             </a>
+          ) : (
+            <span />
           )}
           <a
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-stone-300 text-xs font-bold text-stone-900 hover:bg-stone-100 transition-colors duration-300 block py-1.5 px-3 rounded-md w-full sm:w-auto text-center"
+            className="text-sm font-bold text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2"
           >
-            View
+            View <Icon name="external-link" size={12} />
           </a>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

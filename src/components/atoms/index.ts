@@ -4,6 +4,7 @@ export * from "./external-link";
 export * from "./external-link";
 export * from "./func-link";
 export * from "./icon";
+export * from "./section-label";
 export * from "./shortcut";
 export * from "./stat-item";
 export * from "./tag";

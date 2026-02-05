@@ -1,19 +1,19 @@
 import { cn } from "@/lib/utils";
 
 interface TagProps {
-  children: React.ReactNode;
+  tag: string;
   className?: string;
 }
 
-export function Tag({ children, className }: TagProps) {
+export function Tag({ tag, className }: TagProps) {
   return (
-    <div
+    <span
       className={cn(
-        "text-[11px] shrink-0 text-stone-400 font-bold w-fit px-2.5 py-1 rounded-md bg-stone-900 border border-stone-700",
+        "text-xs text-stone-500 bg-stone-900/50 px-3 py-1.5 rounded",
         className,
       )}
     >
-      {children}
-    </div>
+      {tag}
+    </span>
   );
 }
