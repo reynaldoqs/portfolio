@@ -16,7 +16,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
   return (
     <article
       className={cn(
-        "group relative bg-stone-900/40 border border-stone-800/40 rounded-lg overflow-hidden transition-all duration-500 hover:border-indigo-500/30 h-full",
+        "group relative bg-stone-900/40 border border-stone-800/40 rounded-lg overflow-hidden transition-all duration-500 hover:border-red-500/30 h-full",
         className,
       )}
     >
@@ -35,7 +35,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         )}
         <div className="relative z-10 flex-1 flex flex-col">
           <div className="flex items-baseline gap-3 mb-5">
-            <span className="text-[10px] tracking-[0.2em] uppercase text-indigo-400/70">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-red-400/70">
               {category}
             </span>
             <span className="text-stone-700">·</span>
@@ -64,7 +64,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-stone-600 hover:text-indigo-400 transition-colors"
+              className="text-xs text-stone-600 hover:text-red-400 transition-colors"
             >
               Source Code
             </a>
@@ -75,7 +75,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-bold text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2"
+            className="text-sm font-bold text-red-400 hover:text-red-300 transition-colors flex items-center gap-2"
           >
             View <Icon name="external-link" size={12} />
           </a>

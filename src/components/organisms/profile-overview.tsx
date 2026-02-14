@@ -6,7 +6,7 @@ import avatar from "@/assets/images/avatar.webp";
 import { LOADER_DURATION } from "@/constants/animations.config";
 import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
-import { TagTitle } from "../atoms";
+import { type IconName, TagTitle } from "../atoms";
 import {
   ProfileMeta,
   ProfileStatistics,
@@ -23,11 +23,13 @@ const shortcuts = [
   { shortcutKeys: ["M", "S"], shortcut: "Stack" },
 ];
 
-const profileMeta = [
-  { title: "Location", value: "La Paz, Bolivia" },
-  // { title: "Phone", value: "+591 7 3090 695" },
-  { title: "Languages", value: "Spanish, English" },
-  { title: "Timezone", value: "GMT -4" },
+const profileMeta: { title: string; value: string; icon?: IconName }[] = [
+  { title: "Location", value: "La Paz, Bolivia", icon: "map-pin" },
+  { title: "Phone", value: "+591 7 3090 695", icon: "phone" },
+  { title: "Languages", value: "Spanish, English", icon: "globe" },
+  { title: "Timezone", value: "GMT -4", icon: "clock" },
+  { title: "Education", value: "Bachelor of Computer Science", icon: "book" },
+  { title: "Available", value: "Open to work", icon: "sparkles-solid" },
 ];
 
 interface ProfileOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -71,7 +73,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
             <h2 className="text-4xl sm:text-6xl font-black text-stone-50 w-fit leading-none">
               Hi, I'm
             </h2>
-            <h1 className="text-5xl sm:text-7xl font-black text-indigo-300 w-fit leading-none wrap-break-word">
+            <h1 className="text-5xl sm:text-7xl font-black text-red-400 w-fit leading-none wrap-break-word">
               {profile.fullName}
             </h1>
             <h2 className="text-base sm:text-lg font-medium text-stone-300">
@@ -107,14 +109,10 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
         </div>
         <div className="flex flex-row justify-between gap-12  md:gap-4">
           <ProfileMeta meta={profileMeta} className="profile-overview-item" />
-          <ProfileStatistics
+          {/* <ProfileStatistics
             className="w-full sm:w-fit profile-overview-item"
             statistics={profile.statistics}
-          />
-          <ShortcutList
-            shortcuts={shortcuts}
-            className="profile-overview-item hidden sm:block"
-          />
+          /> */}
         </div>
       </main>
       <ScrollableIndicator

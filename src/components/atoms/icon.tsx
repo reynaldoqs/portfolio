@@ -110,6 +110,44 @@ const icons = {
       </>
     ),
   },
+  phone: {
+    viewBox: "0 0 24 24",
+    body: (
+      <>
+        <path d="M8,1h8v1h1v20h-1v1H8v-1H7V2h1zm1,3v14h6V4H9Z" />
+        <rect x="11" y="2" width="2" height="1" />
+        <rect x="11" y="20" width="2" height="2" />
+      </>
+    ),
+  },
+  book: {
+    viewBox: "0 0 24 24",
+    body: (
+      <path d="m3,2h8v1h2v-1h8v1h1v18h-1v1h-8v-1h-2v1h-8v-1h-1v-18h1zm1,2v15h7v-15zm9,0v15h7v-15z" />
+    ),
+  },
+  "map-pin": {
+    viewBox: "0 0 24 24",
+    body: (
+      <path d="m10,1h4v1h2v1h1v1h1v6h-1v1h-1v1h-1v1h-1v1h-1v7h-2v-7h-1v-1h-1v-1h-1v-1h-1v-1h-1v-6h1v-1h1v-1h2zm1,4v2h2v-2z" />
+    ),
+  },
+  globe: {
+    viewBox: "0 0 24 24",
+    body: (
+      <>
+        <path d="m9,1h6v1h2v1h1v1h1v2h1v8h-1v2h-1v1h-1v1h-2v1h-6v-1h-2v-1h-1v-1h-1v-2h-1v-8h1v-2h1v-1h1v-1h2zm0,2v1h-1v1h-1v2h-1v6h1v2h1v1h1v1h6v-1h1v-1h1v-2h1v-6h-1v-2h-1v-1h-1v-1h-6z" />
+        <rect x="4" y="11" width="16" height="2" />
+        <rect x="11" y="3" width="2" height="14" />
+      </>
+    ),
+  },
+  clock: {
+    viewBox: "0 0 24 24",
+    body: (
+      <path d="m9,1h6v1h2v1h1v1h1v2h1v8h-1v2h-1v1h-1v1h-2v1h-6v-1h-2v-1h-1v-1h-1v-2h-1v-8h1v-2h1v-1h1v-1h2zm0,2v1h-1v1h-1v2h-1v6h1v2h1v1h1v1h6v-1h1v-1h1v-2h1v-6h-1v-2h-1v-1h-1v-1h-6zm2,3h2v4h3v2h-5v-6z" />
+    ),
+  },
   grid: {
     viewBox: "0 0 24 24",
     body: (
