@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import type { MouseEvent, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import { Icon, type IconName } from "./icon";
 
 interface ExternalLinkProps {
@@ -30,7 +30,7 @@ export function ExternalLink({
         className,
       )}
     >
-      <span className="opacity-0 external-link-text-prefix">{"//"}</span>
+      <span className="opacity-0 hidden external-link-text-prefix">{"//"}</span>
       <span className="external-link-text">
         <span className="external-link-label-mobile sm:hidden">
           {mobileLabel ?? children}

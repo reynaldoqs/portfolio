@@ -1,6 +1,7 @@
 export * from "./ai-match-button";
 export * from "./animated-loader";
 export * from "./match-header";
+export * from "./profile-badges";
 export * from "./profile-meta";
 export * from "./profile-statistics";
 export * from "./project-card";

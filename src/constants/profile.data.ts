@@ -355,6 +355,18 @@ export const techs: Tech[] = [
     proficiency: 8,
     keywords: ["zustand"],
   },
+  {
+    id: "python",
+    name: "Python",
+    proficiency: 4,
+    keywords: ["python", "django", "flask", "fastapi"],
+  },
+  {
+    id: "django",
+    name: "Django",
+    proficiency: 3,
+    keywords: ["django"],
+  },
 ];
 
 export const stacks: Stack[] = [
@@ -415,6 +427,8 @@ export const stacks: Stack[] = [
       "ruby",
       "rails",
       "wordpress",
+      "python",
+      "django",
     ],
   },
   {
@@ -710,10 +724,8 @@ export const profile: Profile = {
   title: "Software Engineer",
   avatar: avatar.src,
   summary: [
-    "UX-focused full stack and mobile developer with 7+ years of experience building user-friendly products for web and mobile.",
-    "Background in graphic design and backend development, helping me connect design ideas with solid engineering.",
-    "I enjoy turning UX principles into clean, accessible, and scalable interfaces.",
-    "I focus on intuitive UI systems with consistent design, usability, and pixel-perfect details.",
+    "I’m a <b class='text-stone-300'>UX-focused Full Stack and Mobile Developer</b> with over <b class='text-stone-300'>7 years of experience</b> bringing digital products to life. With a background spanning </b>graphic design and backend engineering</b>, I bridge the gap between creative vision and technical execution. I’m passionate about turning complex UX principles into clean, accessible, and scalable interfaces that don't just look good, but work perfectly.",
+    "When I’m not deep in code or refining a layout, <b class='text-stone-300'>I’m focused on new tech, design trends</b>. Feel free to reach out—I’d love to hear about the project you're working on.",
   ],
   links: {
     email: "mailto:reynaldoqs@gmail.com",

@@ -8,6 +8,7 @@ import { profile } from "@/constants/profile.data";
 import { cn } from "@/lib/utils";
 import { type IconName, TagTitle } from "../atoms";
 import {
+  ProfileBadges,
   ProfileMeta,
   ProfileStatistics,
   ScrollableIndicator,
@@ -25,11 +26,11 @@ const shortcuts = [
 
 const profileMeta: { title: string; value: string; icon?: IconName }[] = [
   { title: "Location", value: "La Paz, Bolivia", icon: "map-pin" },
-  { title: "Phone", value: "+591 7 3090 695", icon: "phone" },
+  // { title: "Phone", value: "+591 7 3090 695", icon: "phone" },
   { title: "Languages", value: "Spanish, English", icon: "globe" },
   { title: "Timezone", value: "GMT -4", icon: "clock" },
-  { title: "Education", value: "Bachelor of Computer Science", icon: "book" },
-  { title: "Available", value: "Open to work", icon: "sparkles-solid" },
+  // { title: "Education", value: "Bachelor of Computer Science", icon: "book" },
+  // { title: "Available", value: "Open to work", icon: "sparkles-solid" },
 ];
 
 interface ProfileOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -83,7 +84,7 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
         </div>
 
         <div className="flex flex-col sm:flex-row items-start gap-4 profile-overview-item">
-          <div className="flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-0">
+          <div className="hidden flex-col sm:flex items-center sm:items-start gap-3 sm:gap-0">
             <TagTitle title="Who I Am" icon="crown" iconSize={14} />
             <Image
               src={avatar}
@@ -100,19 +101,17 @@ export function ProfileOverview({ className, ...rest }: ProfileOverviewProps) {
                   // biome-ignore lint/suspicious/noArrayIndexKey: comes from static array
                   index
                 }`}
-                className="mt-3 sm:mt-4"
-              >
-                {paragraph}
-              </p>
+                className="mt-3 sm:mt-4 leading-relaxed"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: safe to use
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
             ))}
           </div>
         </div>
-        <div className="flex flex-row justify-between gap-12  md:gap-4">
+
+        <div className="flex flex-col  gap-8  md:gap-6">
           <ProfileMeta meta={profileMeta} className="profile-overview-item" />
-          {/* <ProfileStatistics
-            className="w-full sm:w-fit profile-overview-item"
-            statistics={profile.statistics}
-          /> */}
+          <ProfileBadges className="profile-overview-item mt-8" />
         </div>
       </main>
       <ScrollableIndicator

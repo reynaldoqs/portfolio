@@ -1,4 +1,5 @@
 export * from "./animated-logo";
+export * from "./badge";
 export * from "./bento-grid";
 export * from "./external-link";
 export * from "./external-link";
